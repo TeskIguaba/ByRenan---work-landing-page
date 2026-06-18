@@ -1,0 +1,584 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<title>Proposta de Conteúdo — Steak dos Amigos | byrenan</title>
+<meta name="hz:slide-selector" content=".page">
+<meta name="hz:canvas-width" content="794">
+<meta name="hz:canvas-height" content="1123">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:ital,opsz,wght@0,14..32,100..900;1,14..32,100..900&display=swap" rel="stylesheet">
+<style>
+  *, *::before, *::after { margin:0; padding:0; box-sizing:border-box; }
+
+  html, body { background:#050505; }
+  body { font-family:'Inter', -apple-system, sans-serif; -webkit-font-smoothing:antialiased; }
+
+  @page { size:210mm 297mm; margin:0; }
+
+  .page {
+    position:relative;
+    width:210mm;
+    height:297mm;
+    background:#080808;
+    color:#F2EEE8;
+    overflow:hidden;
+    page-break-after:always;
+  }
+  .page:last-child { page-break-after:auto; }
+
+  /* film grain overlay */
+  .page::after {
+    content:'';
+    position:absolute; inset:0;
+    background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='160' height='160'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='160' height='160' filter='url(%23n)'/%3E%3C/svg%3E");
+    background-size:160px 160px; background-repeat:repeat;
+    opacity:0.04; pointer-events:none; z-index:50;
+  }
+
+  .pad { position:absolute; inset:0; padding:18mm; display:flex; flex-direction:column; z-index:2; }
+
+  /* ── shared type roles ── */
+  .eyebrow {
+    font-size:9.5pt; font-weight:700; letter-spacing:0.26em; text-transform:uppercase;
+    color:#C9A84C; display:flex; align-items:center; gap:9px;
+  }
+  .eyebrow::before { content:''; width:24px; height:1.5px; background:#C9A84C; display:inline-block; }
+  .eyebrow.no-line::before { display:none; }
+
+  .kicker { font-size:8.5pt; font-weight:700; letter-spacing:0.22em; text-transform:uppercase; color:#5C5855; }
+
+  h1.display {
+    font-size:42pt; font-weight:900; line-height:0.98; letter-spacing:-0.035em; color:#F2EEE8;
+  }
+  h2.heading {
+    font-size:27pt; font-weight:900; line-height:1.02; letter-spacing:-0.03em; color:#F2EEE8;
+  }
+  .gold-text { color:#C9A84C; }
+  .body {
+    font-size:11pt; font-weight:400; line-height:1.62; color:#A6A09A;
+  }
+  .body strong { color:#F2EEE8; font-weight:600; }
+
+  .hr { height:1px; background:#1E1E1E; width:100%; }
+  .spacer { flex:1; }
+
+  /* brand bar */
+  .brandbar { display:flex; align-items:center; justify-content:space-between; }
+  .logo { display:flex; align-items:center; gap:9px; }
+  .logo .mono {
+    width:30px; height:30px; border-radius:8px;
+    background:linear-gradient(150deg,#C9A84C,#8A6D24);
+    display:flex; align-items:center; justify-content:center;
+    font-size:12pt; font-weight:900; color:#080808; letter-spacing:-0.04em;
+  }
+  .logo .wm { font-size:13pt; font-weight:800; letter-spacing:-0.03em; color:#F2EEE8; }
+  .logo .wm span { color:#C9A84C; }
+
+  /* footer */
+  .pgfoot { display:flex; align-items:center; justify-content:space-between; font-size:8pt; letter-spacing:0.12em; text-transform:uppercase; color:#4A4642; }
+  .pgfoot .num { color:#C9A84C; font-weight:700; }
+
+  /* ───────── COVER ───────── */
+  .cover { background:radial-gradient(120% 80% at 50% 0%, #1A1408 0%, #0B0B0B 42%, #080808 100%); }
+  .cover .glow {
+    position:absolute; top:-18%; left:50%; transform:translateX(-50%);
+    width:130%; height:55%;
+    background:radial-gradient(closest-side, rgba(200,98,26,0.20), rgba(201,168,76,0.07) 55%, transparent 75%);
+    filter:blur(8px); z-index:1;
+  }
+  .cover-center { flex:1; display:flex; flex-direction:column; justify-content:center; }
+  .cover h1 { font-size:54pt; font-weight:900; line-height:0.92; letter-spacing:-0.04em; }
+  .cover .sub { margin-top:14px; font-size:14pt; font-weight:500; color:#D4BC78; letter-spacing:0.01em; }
+  .promo-pill {
+    display:inline-flex; align-items:center; gap:8px; align-self:flex-start;
+    margin-top:26px; padding:9px 16px; border-radius:100px;
+    border:1px solid rgba(201,168,76,0.45); background:rgba(201,168,76,0.06);
+    font-size:9pt; font-weight:700; letter-spacing:0.16em; text-transform:uppercase; color:#E8D5A0;
+  }
+  .promo-pill .dot { width:7px; height:7px; border-radius:50%; background:#E07832; }
+  .cover-meta { display:flex; gap:40px; }
+  .cover-meta .lbl { font-size:8pt; font-weight:700; letter-spacing:0.18em; text-transform:uppercase; color:#5C5855; margin-bottom:5px; }
+  .cover-meta .val { font-size:10.5pt; font-weight:600; color:#F2EEE8; }
+
+  /* ───────── PILLARS ───────── */
+  .pillars { display:flex; flex-direction:column; gap:11px; margin-top:6px; }
+  .pillar {
+    border:1px solid #1E1E1E; border-radius:14px; background:#0E0E0E;
+    padding:18px 20px; display:flex; gap:16px; align-items:flex-start;
+  }
+  .pillar .pico {
+    flex-shrink:0; width:42px; height:42px; border-radius:11px;
+    background:#141008; border:1px solid rgba(201,168,76,0.28);
+    display:flex; align-items:center; justify-content:center;
+  }
+  .pillar h3 { font-size:13pt; font-weight:800; letter-spacing:-0.01em; color:#F2EEE8; margin-bottom:4px; }
+  .pillar p { font-size:10pt; line-height:1.55; color:#8A8480; }
+
+  /* ───────── VIDEO LIST ───────── */
+  .vgrid { display:grid; grid-template-columns:1fr 1fr; gap:11px; margin-top:4px; }
+  .vcard {
+    border:1px solid #1E1E1E; border-radius:14px; background:#0E0E0E; padding:18px 18px 19px;
+    position:relative; overflow:hidden;
+  }
+  .vcard .vn { font-size:32pt; font-weight:900; letter-spacing:-0.05em; color:#1E1A12;
+    -webkit-text-stroke:1px #3a3120; position:absolute; top:8px; right:14px; }
+  .vcard .vtag { font-size:7.5pt; font-weight:700; letter-spacing:0.18em; text-transform:uppercase; color:#C9A84C; }
+  .vcard h3 { font-size:13.5pt; font-weight:800; letter-spacing:-0.015em; margin:8px 0 6px; color:#F2EEE8; }
+  .vcard p { font-size:9.5pt; line-height:1.5; color:#8A8480; }
+
+  .equip { display:flex; flex-wrap:wrap; gap:8px; margin-top:16px; }
+  .chip {
+    display:inline-flex; align-items:center; gap:7px;
+    padding:8px 13px; border-radius:100px; border:1px solid #2A2A2A; background:#101010;
+    font-size:9pt; font-weight:600; color:#D4BC78; letter-spacing:0.02em;
+  }
+  .chip .cd { width:5px; height:5px; border-radius:50%; background:#C9A84C; }
+
+  /* ───────── SOCIAL ───────── */
+  .scols { display:grid; grid-template-columns:1fr 1fr; gap:12px; margin-top:4px; }
+  .scol { border:1px solid #1E1E1E; border-radius:14px; background:#0E0E0E; padding:20px; }
+  .scol .stop { display:flex; align-items:center; gap:11px; margin-bottom:14px; }
+  .scol .sic { width:38px; height:38px; border-radius:10px; background:#141008; border:1px solid rgba(201,168,76,0.28); display:flex; align-items:center; justify-content:center; }
+  .scol h3 { font-size:14pt; font-weight:800; letter-spacing:-0.01em; color:#F2EEE8; }
+  .scol .sml { font-size:8pt; font-weight:700; letter-spacing:0.16em; text-transform:uppercase; color:#5C5855; }
+  .slist { list-style:none; display:flex; flex-direction:column; gap:11px; }
+  .slist li { display:flex; gap:11px; font-size:10pt; line-height:1.5; color:#A6A09A; }
+  .slist li::before { content:''; flex-shrink:0; margin-top:7px; width:6px; height:6px; border-radius:2px; background:#C9A84C; transform:rotate(45deg); }
+  .slist li strong { color:#F2EEE8; font-weight:600; }
+
+  .focusband {
+    margin-top:14px; border-radius:14px; padding:18px 22px;
+    background:linear-gradient(120deg,#1A1408 0%, #0D0D0D 70%); border:1px solid rgba(201,168,76,0.22);
+    display:flex; align-items:center; gap:16px;
+  }
+  .focusband .fic { flex-shrink:0; width:40px; height:40px; }
+  .focusband p { font-size:10.5pt; line-height:1.5; color:#C9C2BA; }
+  .focusband p strong { color:#E8D5A0; font-weight:700; }
+
+  /* ───────── TIMELINE ───────── */
+  .tl { display:flex; flex-direction:column; gap:0; margin-top:6px; position:relative; }
+  .tl::before { content:''; position:absolute; left:21px; top:14px; bottom:14px; width:2px; background:linear-gradient(#C9A84C, #2A2418); }
+  .tlrow { display:flex; gap:20px; padding:13px 0; align-items:flex-start; position:relative; z-index:1; }
+  .tlrow .wk {
+    flex-shrink:0; width:44px; height:44px; border-radius:50%;
+    background:#0E0E0E; border:1.5px solid #C9A84C;
+    display:flex; flex-direction:column; align-items:center; justify-content:center;
+  }
+  .tlrow .wk b { font-size:13pt; font-weight:900; color:#E8D5A0; line-height:1; }
+  .tlrow .wk i { font-size:6pt; font-style:normal; letter-spacing:0.1em; text-transform:uppercase; color:#5C5855; margin-top:2px; }
+  .tlrow .tc h3 { font-size:12.5pt; font-weight:800; color:#F2EEE8; margin-bottom:3px; letter-spacing:-0.01em; }
+  .tlrow .tc p { font-size:9.5pt; line-height:1.5; color:#8A8480; }
+
+  .deliverbox {
+    margin-top:14px; border:1px dashed #2A2A2A; border-radius:14px; padding:16px 20px;
+    display:flex; align-items:center; gap:14px; background:#0C0C0C;
+  }
+  .deliverbox .db-n { font-size:24pt; font-weight:900; color:#C9A84C; letter-spacing:-0.03em; line-height:1; }
+  .deliverbox .db-t b { display:block; font-size:11pt; color:#F2EEE8; font-weight:700; }
+  .deliverbox .db-t span { font-size:9.5pt; color:#8A8480; }
+
+  /* ───────── PRICING ───────── */
+  .pkgs { display:grid; grid-template-columns:1.12fr 1fr; gap:14px; margin-top:6px; }
+  .pkg {
+    border-radius:16px; padding:24px 22px; position:relative; display:flex; flex-direction:column;
+  }
+  .pkg.feat { background:linear-gradient(160deg,#1C1609 0%, #0D0D0D 60%); border:1.5px solid #C9A84C; }
+  .pkg.alt  { background:#0D0D0D; border:1px solid #1E1E1E; }
+  .pkg .ptag {
+    align-self:flex-start; font-size:7.5pt; font-weight:800; letter-spacing:0.16em; text-transform:uppercase;
+    padding:5px 11px; border-radius:100px; margin-bottom:14px;
+  }
+  .pkg.feat .ptag { background:#C9A84C; color:#0A0A0A; }
+  .pkg.alt .ptag { background:#1A1A1A; color:#8A8480; border:1px solid #2A2A2A; }
+  .pkg h3 { font-size:15pt; font-weight:800; color:#F2EEE8; letter-spacing:-0.015em; line-height:1.1; margin-bottom:3px; }
+  .pkg .psub { font-size:8.5pt; font-weight:600; letter-spacing:0.04em; text-transform:uppercase; color:#5C5855; margin-bottom:16px; }
+
+  .lineitem { display:flex; justify-content:space-between; align-items:baseline; padding:9px 0; border-top:1px solid #161616; }
+  .lineitem:first-of-type { border-top:none; }
+  .lineitem .li-l { font-size:10pt; color:#C9C2BA; }
+  .lineitem .li-l small { display:block; font-size:8pt; color:#5C5855; letter-spacing:0.02em; }
+  .lineitem .li-r { font-size:10.5pt; font-weight:700; color:#F2EEE8; white-space:nowrap; }
+  .was { color:#6b655f; text-decoration:line-through; font-weight:500; font-size:9pt; margin-right:5px; }
+
+  .ptotal { margin-top:auto; padding-top:16px; border-top:1.5px solid #2A2418; display:flex; justify-content:space-between; align-items:flex-end; }
+  .ptotal .tl-l { font-size:8.5pt; font-weight:700; letter-spacing:0.14em; text-transform:uppercase; color:#8A8480; }
+  .ptotal .tl-r { font-size:25pt; font-weight:900; letter-spacing:-0.03em; line-height:0.9; }
+  .pkg.feat .tl-r { color:#E8D5A0; }
+  .pkg.alt .tl-r { color:#F2EEE8; }
+
+  .pricenote { margin-top:14px; display:flex; align-items:center; gap:10px; font-size:9pt; color:#8A8480; line-height:1.5; }
+  .pricenote b { color:#D4BC78; font-weight:700; }
+
+  /* ───────── CLOSING ───────── */
+  .closing { background:radial-gradient(120% 80% at 50% 100%, #1A1408 0%, #0B0B0B 45%, #080808 100%); }
+  .close-center { flex:1; display:flex; flex-direction:column; justify-content:center; }
+  .closing h2 { font-size:34pt; font-weight:900; line-height:1.0; letter-spacing:-0.03em; }
+  .contact { display:flex; flex-direction:column; gap:0; margin-top:30px; border:1px solid #1E1E1E; border-radius:16px; overflow:hidden; background:#0C0C0C; }
+  .crow { display:flex; align-items:center; gap:16px; padding:17px 22px; border-bottom:1px solid #161616; }
+  .crow:last-child { border-bottom:none; }
+  .crow .cic { width:34px; height:34px; flex-shrink:0; display:flex; align-items:center; justify-content:center;
+    border-radius:9px; background:#141008; border:1px solid rgba(201,168,76,0.25); }
+  .crow .cl { font-size:7.5pt; font-weight:700; letter-spacing:0.18em; text-transform:uppercase; color:#5C5855; }
+  .crow .cv { font-size:12pt; font-weight:700; color:#F2EEE8; letter-spacing:-0.005em; }
+
+  svg { display:block; }
+</style>
+</head>
+<body>
+
+<!-- ════════ PAGE 1 — COVER ════════ -->
+<section class="page cover">
+  <div class="glow"></div>
+  <div class="pad">
+    <div class="brandbar">
+      <div class="logo">
+        <div class="mono">b</div>
+        <div class="wm">by<span>renan</span></div>
+      </div>
+      <div class="kicker">Filmmaker · Conteúdo Audiovisual</div>
+    </div>
+
+    <div class="cover-center">
+      <div class="eyebrow" style="margin-bottom:20px;">Proposta de Conteúdo</div>
+      <h1>STEAK DOS<br>AMIGOS</h1>
+      <div class="sub">Campanha de conteúdo — Promoção <strong style="color:#E8D5A0;font-weight:700;">Cesta Básica</strong></div>
+      <div class="promo-pill"><span class="dot"></span>Vídeo profissional + Social Media</div>
+    </div>
+
+    <div class="hr" style="margin-bottom:18px;"></div>
+    <div class="cover-meta">
+      <div>
+        <div class="lbl">Preparado para</div>
+        <div class="val">Steak dos Amigos</div>
+      </div>
+      <div>
+        <div class="lbl">Data</div>
+        <div class="val">Junho de 2026</div>
+      </div>
+      <div>
+        <div class="lbl">Por</div>
+        <div class="val">byrenan · @byrenan</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ════════ PAGE 2 — CONCEITO ════════ -->
+<section class="page">
+  <div class="pad">
+    <div class="brandbar" style="margin-bottom:34px;">
+      <div class="eyebrow">01 — O Conceito</div>
+      <div class="kicker">byrenan</div>
+    </div>
+
+    <h2 class="heading">A promoção vira<br><span class="gold-text">desejo na tela.</span></h2>
+    <p class="body" style="margin-top:18px; max-width:155mm;">
+      O objetivo é simples e direto: usar a promoção <strong>Cesta Básica</strong> como gancho para
+      atrair gente nova até o Steak dos Amigos. Para isso, não basta avisar — é preciso
+      <strong>mostrar o lugar do jeito certo</strong>: o ambiente, a brasa, o movimento e a oferta,
+      tudo com padrão de imagem profissional que faz o público parar de rolar o feed e querer ir.
+    </p>
+
+    <div class="spacer" style="max-height:24px;"></div>
+
+    <div class="pillars">
+      <div class="pillar">
+        <div class="pico">
+          <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="#C9A84C" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M12 21s-7-4.5-7-10a7 7 0 0 1 14 0c0 5.5-7 10-7 10Z"/><circle cx="12" cy="11" r="2.5"/></svg>
+        </div>
+        <div>
+          <h3>O local em evidência</h3>
+          <p>Mostramos o Steak dos Amigos como ele merece ser visto — textura, fogo, atendimento e ambiente. O cliente sente o lugar antes mesmo de chegar.</p>
+        </div>
+      </div>
+      <div class="pillar">
+        <div class="pico">
+          <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="#C9A84C" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M3 11l18-5v12L3 14v-3Z"/><path d="M11.6 16.8 9 22"/></svg>
+        </div>
+        <div>
+          <h3>Promoção que para o feed</h3>
+          <p>A Cesta Básica é o centro de tudo: uma oferta clara, chamativa e com chamada direta para a ação. Impossível passar batido.</p>
+        </div>
+      </div>
+      <div class="pillar">
+        <div class="pico">
+          <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="#C9A84C" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="m15.2 4.2 4.6 4.6"/><rect x="2.5" y="8.5" width="13" height="11" rx="2"/><path d="m15.5 11.5 5.5-3v9l-5.5-3"/></svg>
+        </div>
+        <div>
+          <h3>Padrão cinematográfico</h3>
+          <p>Captação com equipamento profissional e edição refinada. Nada de vídeo amador — é imagem feita para vender e elevar a marca.</p>
+        </div>
+      </div>
+    </div>
+
+    <div class="spacer"></div>
+    <div class="hr" style="margin-bottom:12px;"></div>
+    <div class="pgfoot"><span>Proposta de Conteúdo — Steak dos Amigos</span><span class="num">02</span></div>
+  </div>
+</section>
+
+<!-- ════════ PAGE 3 — VÍDEOS ════════ -->
+<section class="page">
+  <div class="pad">
+    <div class="brandbar" style="margin-bottom:30px;">
+      <div class="eyebrow">02 — Produção Audiovisual</div>
+      <div class="kicker">byrenan</div>
+    </div>
+
+    <h2 class="heading">4 vídeos profissionais</h2>
+    <p class="body" style="margin-top:14px; max-width:150mm;">
+      Quatro peças pensadas para trabalhar juntas durante a campanha — cada uma com um papel,
+      todas com o mesmo padrão de qualidade. Captação no local, foco na promoção e chamada para o público.
+    </p>
+
+    <div class="vgrid" style="margin-top:18px;">
+      <div class="vcard">
+        <div class="vn">01</div>
+        <div class="vtag">Carro-chefe</div>
+        <h3>Vídeo Promocional</h3>
+        <p>Apresenta o Steak dos Amigos e abre a campanha já com a Cesta Básica em destaque e chamada direta.</p>
+      </div>
+      <div class="vcard">
+        <div class="vn">02</div>
+        <div class="vtag">Ambiente</div>
+        <h3>O Lugar & a Brasa</h3>
+        <p>O preparo, a fumaça, o atendimento e o clima da casa. Dá vontade de estar lá — é o que vende.</p>
+      </div>
+      <div class="vcard">
+        <div class="vn">03</div>
+        <div class="vtag">Oferta</div>
+        <h3>Cesta Básica em foco</h3>
+        <p>Foco total na promoção: condições, valor e urgência. Um vídeo curto e direto para conversão.</p>
+      </div>
+      <div class="vcard">
+        <div class="vn">04</div>
+        <div class="vtag">Prova social</div>
+        <h3>A Casa Cheia</h3>
+        <p>Movimento, clientes aproveitando e a energia do lugar. Mostra que a promoção está bombando.</p>
+      </div>
+    </div>
+
+    <div style="margin-top:20px;">
+      <div class="kicker" style="margin-bottom:11px;">Feito com equipamento profissional</div>
+      <div class="equip">
+        <span class="chip"><span class="cd"></span>Sony FX30</span>
+        <span class="chip"><span class="cd"></span>Drone DJI</span>
+        <span class="chip"><span class="cd"></span>Iluminação profissional</span>
+        <span class="chip"><span class="cd"></span>Edição Premiere + After Effects</span>
+      </div>
+    </div>
+
+    <div class="spacer"></div>
+    <div class="hr" style="margin-bottom:12px;"></div>
+    <div class="pgfoot"><span>Proposta de Conteúdo — Steak dos Amigos</span><span class="num">03</span></div>
+  </div>
+</section>
+
+<!-- ════════ PAGE 4 — SOCIAL MEDIA ════════ -->
+<section class="page">
+  <div class="pad">
+    <div class="brandbar" style="margin-bottom:30px;">
+      <div class="eyebrow">03 — Social Media</div>
+      <div class="kicker">byrenan</div>
+    </div>
+
+    <h2 class="heading">Presença o <span class="gold-text">mês inteiro.</span></h2>
+    <p class="body" style="margin-top:14px; max-width:150mm;">
+      Os vídeos são o coração da campanha — a gestão de social media é o que mantém a Cesta Básica
+      viva no feed e nos stories todos os dias, transformando alcance em gente na porta.
+    </p>
+
+    <div class="scols" style="margin-top:18px;">
+      <div class="scol">
+        <div class="stop">
+          <div class="sic"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#C9A84C" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="3" width="18" height="18" rx="5"/><circle cx="12" cy="12" r="4"/><circle cx="17.5" cy="6.5" r="1"/></svg></div>
+          <div><h3>Posts no Feed</h3><div class="sml">Conteúdo permanente</div></div>
+        </div>
+        <ul class="slist">
+          <li>Publicações semanais <strong>reforçando a promoção</strong> Cesta Básica.</li>
+          <li>Artes e cortes dos vídeos adaptados para o feed.</li>
+          <li>Legendas com <strong>copy de conversão</strong> e chamada para ação.</li>
+        </ul>
+      </div>
+      <div class="scol">
+        <div class="stop">
+          <div class="sic"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#C9A84C" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="9" stroke-dasharray="3 3"/><circle cx="12" cy="12" r="4"/></svg></div>
+          <div><h3>Stories</h3><div class="sml">Sustentação diária</div></div>
+        </div>
+        <ul class="slist">
+          <li>Stories ao longo do mês mantendo a <strong>oferta sempre presente</strong>.</li>
+          <li>Bastidores, contagem regressiva e enquetes para engajar.</li>
+          <li>Lembretes de <strong>"vem pro Steak"</strong> com link e localização.</li>
+        </ul>
+      </div>
+    </div>
+
+    <div class="focusband">
+      <svg class="fic" width="40" height="40" viewBox="0 0 24 24" fill="none" stroke="#E8D5A0" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round"><path d="M3 11l18-5v12L3 14v-3Z"/><path d="M11.6 16.8 9 22"/></svg>
+      <p><strong>Ênfase total na promoção.</strong> Durante todo o mês, posts e stories trabalham em conjunto para que a Cesta Básica esteja sempre na frente do público — do primeiro dia até a última chamada.</p>
+    </div>
+
+    <div class="spacer"></div>
+    <div class="hr" style="margin-bottom:12px;"></div>
+    <div class="pgfoot"><span>Proposta de Conteúdo — Steak dos Amigos</span><span class="num">04</span></div>
+  </div>
+</section>
+
+<!-- ════════ PAGE 5 — CRONOGRAMA ════════ -->
+<section class="page">
+  <div class="pad">
+    <div class="brandbar" style="margin-bottom:30px;">
+      <div class="eyebrow">04 — Cronograma do Mês</div>
+      <div class="kicker">byrenan</div>
+    </div>
+
+    <h2 class="heading">Um mês de campanha</h2>
+    <p class="body" style="margin-top:14px; max-width:150mm;">
+      Distribuição sugerida das quatro semanas, sempre com a Cesta Básica no centro e os vídeos
+      entrando como combustível da divulgação.
+    </p>
+
+    <div class="tl">
+      <div class="tlrow">
+        <div class="wk"><b>1</b><i>Semana</i></div>
+        <div class="tc"><h3>Captação & lançamento</h3><p>Gravação no local e estreia do vídeo promocional principal abrindo a campanha com força.</p></div>
+      </div>
+      <div class="tlrow">
+        <div class="wk"><b>2</b><i>Semana</i></div>
+        <div class="tc"><h3>Ambiente & rotina</h3><p>Vídeo do lugar e da brasa no ar, com stories diários sustentando a promoção.</p></div>
+      </div>
+      <div class="tlrow">
+        <div class="wk"><b>3</b><i>Semana</i></div>
+        <div class="tc"><h3>Oferta & urgência</h3><p>Vídeo focado na Cesta Básica, com reforço de condições e chamada para ação.</p></div>
+      </div>
+      <div class="tlrow">
+        <div class="wk"><b>4</b><i>Semana</i></div>
+        <div class="tc"><h3>Prova social & última chamada</h3><p>Vídeo da casa cheia e fechamento da promoção com o senso de "é agora ou nunca".</p></div>
+      </div>
+    </div>
+
+    <div class="deliverbox">
+      <div class="db-n">5–6</div>
+      <div class="db-t"><b>dias úteis para entrega</b><span>Prazo de entrega dos vídeos após a captação.</span></div>
+    </div>
+
+    <div class="spacer"></div>
+    <div class="hr" style="margin-bottom:12px;"></div>
+    <div class="pgfoot"><span>Proposta de Conteúdo — Steak dos Amigos</span><span class="num">05</span></div>
+  </div>
+</section>
+
+<!-- ════════ PAGE 6 — INVESTIMENTO ════════ -->
+<section class="page">
+  <div class="pad">
+    <div class="brandbar" style="margin-bottom:26px;">
+      <div class="eyebrow">05 — Investimento</div>
+      <div class="kicker">byrenan</div>
+    </div>
+
+    <h2 class="heading">Investimento</h2>
+    <p class="body" style="margin-top:12px; max-width:150mm;">
+      Dois caminhos possíveis. O pacote completo aplica o <strong>valor promocional</strong> nos vídeos
+      ao fechar também a social media.
+    </p>
+
+    <div class="pkgs">
+      <!-- FEATURED -->
+      <div class="pkg feat">
+        <div class="ptag">Recomendado · Promocional</div>
+        <h3>Pacote Completo</h3>
+        <div class="psub">Vídeos + Social Media</div>
+
+        <div class="lineitem">
+          <div class="li-l">4 vídeos profissionais<small>R$ 750 cada (valor promocional)</small></div>
+          <div class="li-r"><span class="was">R$ 1.000</span>R$ 3.000</div>
+        </div>
+        <div class="lineitem">
+          <div class="li-l">Gestão de Social Media<small>Posts + stories durante o mês</small></div>
+          <div class="li-r">R$ 800</div>
+        </div>
+
+        <div class="ptotal">
+          <div class="tl-l">Total</div>
+          <div class="tl-r">R$&nbsp;3.800</div>
+        </div>
+      </div>
+
+      <!-- ALT -->
+      <div class="pkg alt">
+        <div class="ptag">Indicação</div>
+        <h3>Pacote Vídeos</h3>
+        <div class="psub">Apenas os 4 vídeos</div>
+
+        <div class="lineitem">
+          <div class="li-l">4 vídeos profissionais<small>R$ 900 cada (valor indicação)</small></div>
+          <div class="li-r"><span class="was">R$ 1.000</span>R$ 3.600</div>
+        </div>
+        <div class="lineitem">
+          <div class="li-l">Social Media<small>Não incluído neste pacote</small></div>
+          <div class="li-r" style="color:#5C5855;">—</div>
+        </div>
+
+        <div class="ptotal">
+          <div class="tl-l">Total</div>
+          <div class="tl-r">R$&nbsp;3.600</div>
+        </div>
+      </div>
+    </div>
+
+    <div class="pricenote">
+      <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#D4BC78" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="9"/><path d="M12 8h.01M11 12h1v4h1"/></svg>
+      <span>O valor de <b>R$ 750 por vídeo</b> é exclusivo do pacote completo. Sem a social media, a condição de indicação fica em <b>R$ 900 por vídeo</b>. Entrega em <b>5 a 6 dias úteis</b>.</span>
+    </div>
+
+    <div class="spacer"></div>
+    <div class="hr" style="margin-bottom:12px;"></div>
+    <div class="pgfoot"><span>Proposta de Conteúdo — Steak dos Amigos</span><span class="num">06</span></div>
+  </div>
+</section>
+
+<!-- ════════ PAGE 7 — FECHAMENTO ════════ -->
+<section class="page closing">
+  <div class="glow" style="top:auto; bottom:-18%;"></div>
+  <div class="pad">
+    <div class="brandbar">
+      <div class="logo">
+        <div class="mono">b</div>
+        <div class="wm">by<span>renan</span></div>
+      </div>
+      <div class="kicker">Filmmaker · Conteúdo Audiovisual</div>
+    </div>
+
+    <div class="close-center">
+      <div class="eyebrow" style="margin-bottom:18px;">Vamos fechar essa</div>
+      <h2 class="closing" style="font-weight:900;">Bora encher o<br>Steak dos Amigos?</h2>
+      <p class="body" style="margin-top:16px; max-width:150mm;">
+        Conteúdo cinematográfico, estratégia de mês inteiro e uma promoção que ninguém vai
+        conseguir ignorar. Me chama e a gente coloca a campanha de pé.
+      </p>
+
+      <div class="contact">
+        <div class="crow">
+          <div class="cic"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#C9A84C" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M21 16.5v3a2 2 0 0 1-2.2 2 19.8 19.8 0 0 1-8.6-3.1 19.5 19.5 0 0 1-6-6 19.8 19.8 0 0 1-3.1-8.6A2 2 0 0 1 3.1 2h3a2 2 0 0 1 2 1.7c.1.9.4 1.8.7 2.6a2 2 0 0 1-.5 2.1L7.1 9.6a16 16 0 0 0 6 6l1.2-1.2a2 2 0 0 1 2.1-.5c.8.3 1.7.6 2.6.7a2 2 0 0 1 1.7 2Z"/></svg></div>
+          <div><div class="cl">WhatsApp</div><div class="cv">(21) 98232-7799</div></div>
+        </div>
+        <div class="crow">
+          <div class="cic"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#C9A84C" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="3" width="18" height="18" rx="5"/><circle cx="12" cy="12" r="4"/><circle cx="17.5" cy="6.5" r="1"/></svg></div>
+          <div><div class="cl">Instagram</div><div class="cv">@byrenan</div></div>
+        </div>
+        <div class="crow">
+          <div class="cic"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#C9A84C" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="9"/><path d="M3 12h18M12 3a14 14 0 0 1 0 18 14 14 0 0 1 0-18Z"/></svg></div>
+          <div><div class="cl">Site</div><div class="cv">byrenan.com.br</div></div>
+        </div>
+      </div>
+    </div>
+
+    <div class="hr" style="margin-bottom:14px;"></div>
+    <div class="pgfoot"><span>by renan — Conteúdo cinematográfico</span><span class="num">07</span></div>
+  </div>
+</section>
+
+</body>
+</html>
