@@ -193,7 +193,20 @@
   .pkg.feat .ptag { background:#C9A84C; color:#0A0A0A; }
   .pkg.alt .ptag { background:#1A1A1A; color:#8A8480; border:1px solid #2A2A2A; }
   .pkg h3 { font-size:15pt; font-weight:800; color:#F2EEE8; letter-spacing:-0.015em; line-height:1.1; margin-bottom:3px; }
-  .pkg .psub { font-size:8.5pt; font-weight:600; letter-spacing:0.04em; text-transform:uppercase; color:#5C5855; margin-bottom:16px; }
+  .pkg .psub { font-size:8.5pt; font-weight:600; letter-spacing:0.04em; text-transform:uppercase; color:#5C5855; margin-bottom:14px; }
+
+  /* scarcity hero */
+  .scarcity { border-radius:12px; padding:13px 15px; margin-bottom:15px; }
+  .pkg.feat .scarcity { background:#0A0A0A; border:1px solid #2A2418; }
+  .pkg.alt  .scarcity { background:#0A0A0A; border:1px solid #1E1E1E; }
+  .scarcity .sc-from { font-size:9.5pt; font-weight:600; letter-spacing:0.02em; color:#8A8480; }
+  .scarcity .sc-from s { color:#C8621A; text-decoration-thickness:1.5px; font-weight:700; }
+  .scarcity .sc-for { display:flex; align-items:baseline; gap:7px; margin-top:4px; }
+  .scarcity .sc-for em { font-style:normal; font-size:10pt; font-weight:600; color:#A6A09A; }
+  .scarcity .sc-for b { font-size:32pt; font-weight:900; letter-spacing:-0.035em; line-height:0.85; }
+  .pkg.feat .scarcity .sc-for b { color:#E8D5A0; }
+  .pkg.alt  .scarcity .sc-for b { color:#F2EEE8; }
+  .scarcity .sc-for span { font-size:9.5pt; font-weight:700; color:#5C5855; letter-spacing:0.04em; }
 
   .lineitem { display:flex; justify-content:space-between; align-items:baseline; padding:9px 0; border-top:1px solid #161616; }
   .lineitem:first-of-type { border-top:none; }
@@ -363,10 +376,9 @@
     <div style="margin-top:20px;">
       <div class="kicker" style="margin-bottom:11px;">Feito com equipamento profissional</div>
       <div class="equip">
-        <span class="chip"><span class="cd"></span>Sony FX30</span>
-        <span class="chip"><span class="cd"></span>Drone DJI</span>
+        <span class="chip"><span class="cd"></span>Câmera Sony FX30</span>
         <span class="chip"><span class="cd"></span>Iluminação profissional</span>
-        <span class="chip"><span class="cd"></span>Edição Premiere + After Effects</span>
+        <span class="chip"><span class="cd"></span>Edição em Premiere + After Effects</span>
       </div>
     </div>
 
@@ -487,13 +499,18 @@
     <div class="pkgs">
       <!-- FEATURED -->
       <div class="pkg feat">
-        <div class="ptag">Recomendado · Promocional</div>
+        <div class="ptag">Recomendado · Fechando com Social Media</div>
         <h3>Pacote Completo</h3>
-        <div class="psub">Vídeos + Social Media</div>
+        <div class="psub">4 vídeos + Social Media</div>
+
+        <div class="scarcity">
+          <div class="sc-from">De <s>R$ 1.000</s> por vídeo</div>
+          <div class="sc-for"><em>por</em><b>R$ 750</b><span>/ VÍDEO</span></div>
+        </div>
 
         <div class="lineitem">
-          <div class="li-l">4 vídeos profissionais<small>R$ 750 cada (valor promocional)</small></div>
-          <div class="li-r"><span class="was">R$ 1.000</span>R$ 3.000</div>
+          <div class="li-l">4 vídeos profissionais<small>R$ 750 cada · valor promocional</small></div>
+          <div class="li-r">R$ 3.000</div>
         </div>
         <div class="lineitem">
           <div class="li-l">Gestão de Social Media<small>Posts + stories durante o mês</small></div>
@@ -508,13 +525,18 @@
 
       <!-- ALT -->
       <div class="pkg alt">
-        <div class="ptag">Indicação</div>
+        <div class="ptag">Apenas indicação · sem Social Media</div>
         <h3>Pacote Vídeos</h3>
-        <div class="psub">Apenas os 4 vídeos</div>
+        <div class="psub">Somente os 4 vídeos</div>
+
+        <div class="scarcity">
+          <div class="sc-from">De <s>R$ 1.000</s> por vídeo</div>
+          <div class="sc-for"><em>por</em><b>R$ 900</b><span>/ VÍDEO</span></div>
+        </div>
 
         <div class="lineitem">
-          <div class="li-l">4 vídeos profissionais<small>R$ 900 cada (valor indicação)</small></div>
-          <div class="li-r"><span class="was">R$ 1.000</span>R$ 3.600</div>
+          <div class="li-l">4 vídeos profissionais<small>R$ 900 cada · valor indicação</small></div>
+          <div class="li-r">R$ 3.600</div>
         </div>
         <div class="lineitem">
           <div class="li-l">Social Media<small>Não incluído neste pacote</small></div>
@@ -530,7 +552,7 @@
 
     <div class="pricenote">
       <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#D4BC78" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="9"/><path d="M12 8h.01M11 12h1v4h1"/></svg>
-      <span>O valor de <b>R$ 750 por vídeo</b> é exclusivo do pacote completo. Sem a social media, a condição de indicação fica em <b>R$ 900 por vídeo</b>. Entrega em <b>5 a 6 dias úteis</b>.</span>
+      <span>O valor de <b>R$ 750 por vídeo</b> só vale fechando junto com a social media. Apenas com indicação, sem fechar a social media, a condição fica em <b>R$ 900 por vídeo</b>. Entrega em <b>5 a 6 dias úteis</b>.</span>
     </div>
 
     <div class="spacer"></div>
