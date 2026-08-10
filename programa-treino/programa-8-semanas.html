@@ -1,0 +1,1375 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="utf-8">
+<title>Programa de Treino — 8 Semanas</title>
+<style>
+  @page {
+    size: A4;
+    margin: 13mm 12mm 14mm 12mm;
+    @bottom-center { content: counter(page); }
+  }
+
+  :root{
+    --ink:#16202b;
+    --ink-soft:#4a5866;
+    --line:#dde3ea;
+    --line-strong:#c3ccd6;
+    --accent:#0f5f6b;
+    --accent-soft:#e6f1f2;
+    --warn:#8a4b12;
+    --warn-soft:#fdf1e3;
+    --danger:#8f2431;
+    --danger-soft:#fbeced;
+    --ok:#1f6338;
+    --ok-soft:#e8f4ec;
+    --zebra:#f6f8fa;
+  }
+
+  *{ box-sizing:border-box; }
+
+  body{
+    font-family:"Liberation Sans","DejaVu Sans",Arial,sans-serif;
+    font-size:9.5pt;
+    line-height:1.44;
+    color:var(--ink);
+    margin:0;
+    -webkit-print-color-adjust:exact;
+    print-color-adjust:exact;
+  }
+
+  h1,h2,h3,h4{ line-height:1.25; margin:0; }
+
+  /* ---------- CAPA ---------- */
+  .cover{
+    height:262mm;
+    display:flex;
+    flex-direction:column;
+    justify-content:space-between;
+    page-break-after:always;
+  }
+  .cover-top{ border-top:6px solid var(--accent); padding-top:16mm; }
+  .cover .eyebrow{
+    font-size:10pt; letter-spacing:.22em; text-transform:uppercase;
+    color:var(--accent); font-weight:700; margin-bottom:9mm;
+  }
+  .cover h1{ font-size:33pt; letter-spacing:-.5pt; margin-bottom:5mm; }
+  .cover h1 span{ display:block; color:var(--accent); }
+  .cover .sub{ font-size:12pt; color:var(--ink-soft); max-width:135mm; line-height:1.6; }
+  .cover-facts{
+    display:grid; grid-template-columns:repeat(4,1fr); gap:0;
+    border-top:1px solid var(--line-strong); border-bottom:1px solid var(--line-strong);
+    margin-top:14mm;
+  }
+  .cover-facts div{ padding:5mm 4mm 5mm 0; }
+  .cover-facts .k{ font-size:7.6pt; letter-spacing:.13em; text-transform:uppercase; color:var(--ink-soft); }
+  .cover-facts .v{ font-size:13pt; font-weight:700; margin-top:1.5mm; }
+  .cover-foot{
+    font-size:8.4pt; color:var(--ink-soft); border-top:1px solid var(--line);
+    padding-top:4mm; line-height:1.6;
+  }
+
+  /* ---------- ÍNDICE ---------- */
+  .toc{ page-break-after:always; }
+  .toc ol{ margin:0; padding-left:0; list-style:none; counter-reset:toc; }
+  .toc li{
+    counter-increment:toc; padding:2.6mm 0; border-bottom:1px dotted var(--line-strong);
+    font-size:10.4pt; display:flex; gap:5mm;
+  }
+  .toc li::before{
+    content:counter(toc,decimal-leading-zero);
+    color:var(--accent); font-weight:700; min-width:9mm;
+  }
+
+  /* ---------- SEÇÕES ---------- */
+  section{ page-break-before:always; }
+  section.cont{ page-break-before:auto; }
+
+  h2.sec{
+    font-size:16.5pt; margin-bottom:1.5mm; letter-spacing:-.3pt;
+    padding-bottom:2.5mm; border-bottom:3px solid var(--accent);
+  }
+  h2.sec .num{ color:var(--accent); font-size:11pt; display:block; letter-spacing:.16em; margin-bottom:1.5mm; }
+  h3{ font-size:11.6pt; margin:5.5mm 0 2.5mm; color:var(--accent); }
+  h4{ font-size:10pt; margin:4.5mm 0 1.5mm; }
+  h2.sec, h3, h4{ page-break-after:avoid; break-after:avoid; }
+  p{ margin:0 0 2.3mm; }
+  ul,ol{ margin:0 0 3mm; padding-left:5mm; }
+  li{ margin-bottom:1.15mm; }
+  a{ color:var(--accent); text-decoration:none; border-bottom:1px solid rgba(15,95,107,.35); }
+  strong{ font-weight:700; }
+  .muted{ color:var(--ink-soft); }
+  .small{ font-size:8.6pt; }
+
+  /* ---------- TABELAS ---------- */
+  table{ width:100%; border-collapse:collapse; margin:2.6mm 0 3.4mm; font-size:8.5pt; }
+  thead th{
+    background:var(--accent); color:#fff; text-align:left; font-weight:700;
+    padding:1.9mm 2mm; font-size:8pt; letter-spacing:.03em;
+  }
+  tbody td{ padding:1.85mm 2mm; border-bottom:1px solid var(--line); vertical-align:top; }
+  tbody tr:nth-child(even) td{ background:var(--zebra); }
+  td.ex{ font-weight:700; width:26%; }
+  td.c{ text-align:center; white-space:nowrap; }
+  table.tight td, table.tight th{ padding:1.55mm 1.8mm; }
+  thead{ display:table-header-group; }
+  tr{ page-break-inside:avoid; }
+
+  /* ---------- CARDS DE DETALHE ---------- */
+  .cards{ display:grid; grid-template-columns:1fr 1fr; gap:2.2mm; margin:2.6mm 0 3.4mm; }
+  .card{
+    border:1px solid var(--line); border-left:3px solid var(--accent);
+    padding:2.3mm 2.8mm; font-size:8.3pt; page-break-inside:avoid; break-inside:avoid; background:#fff;
+  }
+  .card .name{ font-weight:700; font-size:9pt; margin-bottom:1.6mm; }
+  .card .row{ margin-bottom:.9mm; line-height:1.4; }
+  .card .row:last-child{ margin-bottom:0; }
+  .tag{
+    display:inline-block; font-size:6.8pt; font-weight:700; letter-spacing:.06em;
+    text-transform:uppercase; padding:.5mm 1.4mm; border-radius:2px; margin-right:1.4mm;
+    vertical-align:1px;
+  }
+  .t-mus{ background:var(--accent-soft); color:var(--accent); }
+  .t-tec{ background:var(--ok-soft); color:var(--ok); }
+  .t-alt{ background:#eef0f3; color:var(--ink-soft); }
+  .t-joe{ background:var(--warn-soft); color:var(--warn); }
+
+  /* ---------- CAIXAS ---------- */
+  .box{ border:1px solid var(--line-strong); padding:3mm 3.5mm; margin:3mm 0; page-break-inside:avoid; }
+  .box .bt{ font-weight:700; font-size:9.6pt; margin-bottom:2mm; }
+  .box.accent{ background:var(--accent-soft); border-color:#b9d6da; }
+  .box.accent .bt{ color:var(--accent); }
+  .box.warn{ background:var(--warn-soft); border-color:#e8cfae; }
+  .box.warn .bt{ color:var(--warn); }
+  .box.danger{ background:var(--danger-soft); border-color:#e7bcc1; }
+  .box.danger .bt{ color:var(--danger); }
+  .box.ok{ background:var(--ok-soft); border-color:#bcdcc8; }
+  .box.ok .bt{ color:var(--ok); }
+  .box p:last-child, .box ul:last-child{ margin-bottom:0; }
+
+  /* ---------- SEMÁFORO ---------- */
+  .light{ display:grid; grid-template-columns:1fr 1fr 1fr; gap:2.5mm; margin:3mm 0 4mm; }
+  .light > div{ border:1px solid var(--line-strong); padding:3mm; font-size:8.4pt; page-break-inside:avoid; }
+  .light .lh{ font-weight:700; font-size:9.4pt; margin-bottom:1.8mm; }
+  .l-g{ background:var(--ok-soft); border-color:#bcdcc8; } .l-g .lh{ color:var(--ok); }
+  .l-y{ background:var(--warn-soft); border-color:#e8cfae; } .l-y .lh{ color:var(--warn); }
+  .l-r{ background:var(--danger-soft); border-color:#e7bcc1; } .l-r .lh{ color:var(--danger); }
+  .light ul{ padding-left:4mm; margin:0; }
+  .light li{ margin-bottom:1mm; }
+
+  /* ---------- BLOCO DE SESSÃO ---------- */
+  .flow{ display:flex; gap:0; margin:3mm 0 5mm; border:1px solid var(--line-strong); }
+  .flow > div{ flex:1; padding:2.6mm 2.5mm; border-right:1px solid var(--line); font-size:8pt; }
+  .flow > div:last-child{ border-right:none; }
+  .flow .fn{ font-weight:700; color:var(--accent); font-size:8.6pt; }
+  .flow .ft{ color:var(--ink-soft); font-size:7.6pt; letter-spacing:.05em; text-transform:uppercase; margin-top:.6mm; }
+
+  /* ---------- ESCADA DE PROGRESSÃO ---------- */
+  .ladder{ margin:3mm 0 4mm; }
+  .ladder .step{
+    display:flex; gap:3mm; border-left:3px solid var(--accent); padding:1.9mm 0 1.9mm 3mm;
+    margin-bottom:1.4mm; background:var(--zebra); page-break-inside:avoid; font-size:8.6pt;
+  }
+  .ladder .lv{
+    font-weight:700; color:#fff; background:var(--accent); min-width:13mm; height:5.4mm;
+    display:flex; align-items:center; justify-content:center; font-size:7.6pt; letter-spacing:.05em;
+    flex-shrink:0; margin-top:.2mm;
+  }
+  .ladder .step b{ display:block; margin-bottom:.5mm; }
+
+  /* ---------- FICHA DE REGISTRO ---------- */
+  table.log td{ height:7.5mm; }
+  table.log td.lbl{ background:var(--accent-soft); font-weight:700; font-size:8pt; }
+  .blank td{ border:1px solid var(--line-strong); }
+
+  .footnote{ font-size:8pt; color:var(--ink-soft); border-top:1px solid var(--line); padding-top:2.5mm; margin-top:4mm; }
+  .nb{ page-break-inside:avoid; }
+</style>
+</head>
+<body>
+
+<!-- ============ CAPA ============ -->
+<div class="cover">
+  <div class="cover-top">
+    <div class="eyebrow">Programa de Treinamento · 8 Semanas</div>
+    <h1>Força, Condicionamento<span>e Controle Corporal</span></h1>
+    <p class="sub">Treino de musculação estruturado e progressivo, com cardio de baixo impacto,
+    desenvolvimento de core e progressões de peso corporal — construído em torno de uma
+    limitação atual de joelho e de um processo de longo prazo, não de um prazo rígido.</p>
+
+    <div class="cover-facts">
+      <div><div class="k">Frequência</div><div class="v">5×/semana</div></div>
+      <div><div class="k">Divisão</div><div class="v">A · B · C</div></div>
+      <div><div class="k">Sessão</div><div class="v">60–75 min</div></div>
+      <div><div class="k">Horário</div><div class="v">08:30</div></div>
+    </div>
+  </div>
+
+  <div class="cover-foot">
+    <strong>Aviso importante.</strong> Este documento é um plano de treinamento de academia, de caráter
+    educativo. Ele <strong>não é</strong> um diagnóstico, um tratamento médico ou um substituto de fisioterapia.
+    A limitação de joelho descrita aqui não foi avaliada por nenhum profissional neste documento e
+    <strong>nenhuma estrutura lesionada é presumida</strong>. Se a dor no joelho persistir, piorar, inchar ou limitar
+    seus movimentos, procure um médico ou fisioterapeuta — a avaliação presencial é o que define
+    quais exercícios são apropriados para o seu caso.
+    <br><br>
+    Gerado em agosto de 2026 · Versão 1.0
+  </div>
+</div>
+
+<!-- ============ ÍNDICE ============ -->
+<div class="toc">
+  <h2 class="sec"><span class="num">SUMÁRIO</span>O que tem neste documento</h2>
+  <ol>
+    <li>Meus objetivos e como o programa responde a eles</li>
+    <li>Orientações de segurança e o semáforo do joelho</li>
+    <li>Estrutura semanal e rotação A / B / C</li>
+    <li>Aquecimento (8 minutos)</li>
+    <li>Treino A — Empurrar + Core anti-extensão</li>
+    <li>Treino B — Puxar + Pegada + Core anti-rotação</li>
+    <li>Treino C — Membros inferiores + Quadril + Core lateral</li>
+    <li>Cardio — frequência, intensidade e progressão</li>
+    <li>Core e prancha — o que treinar e por quê</li>
+    <li>Progressões para controle do próprio peso corporal</li>
+    <li>Fortalecimento de punhos, antebraços e ombros</li>
+    <li>Estratégia de progressão de carga</li>
+    <li>Estrutura das 8 semanas (fases e deload)</li>
+    <li>Tabelas de acompanhamento</li>
+    <li>Tutoriais clicáveis de todos os exercícios</li>
+  </ol>
+</div>
+
+<!-- ============ 1. OBJETIVOS ============ -->
+<section>
+  <h2 class="sec"><span class="num">01</span>Meus objetivos e como o programa responde a eles</h2>
+
+  <table>
+    <thead><tr><th style="width:30%">Objetivo</th><th>Como o programa trata isso</th></tr></thead>
+    <tbody>
+      <tr><td class="ex">Reduzir gordura corporal</td><td>Aumento do gasto energético total via 5 sessões de musculação + cardio de baixo impacto, com volume suficiente para <strong>preservar massa muscular</strong> durante o processo. A perda de gordura em si depende principalmente do balanço energético (alimentação) — o treino sustenta o músculo e o gasto.</td></tr>
+      <tr><td class="ex">Gordura abdominal</td><td>Não existe redução localizada. Abdominais e prancha entram para <strong>força e estabilidade do tronco</strong>, não para "queimar barriga". A barriga reduz conforme a gordura corporal total reduz — e o abdômen costuma ser uma das últimas regiões a responder.</td></tr>
+      <tr><td class="ex">Fortalecimento e ganho de força</td><td>Movimentos principais mantidos ao longo das 8 semanas, com progressão dupla (repetições → carga) e faixas de RIR controladas.</td></tr>
+      <tr><td class="ex">Condicionamento</td><td>Cardio progressivo em Zona 2 + blocos intervalados leves, sem comprometer a recuperação da musculação.</td></tr>
+      <tr><td class="ex">Controle do peso corporal</td><td>Escadas de progressão dedicadas para flexão, remada invertida, pendura e barra fixa — começando no nível que você consegue executar hoje, com 125 kg.</td></tr>
+      <tr><td class="ex">Joelho</td><td>Ênfase em exercícios estáveis, guiados e de amplitude controlável. Fortalecimento de quadríceps, posteriores, glúteos, panturrilhas e estabilizadores de quadril, com alternativa mapeada para cada exercício que possa incomodar.</td></tr>
+    </tbody>
+  </table>
+
+  <h3>Sobre a meta de 105–110 kg</h3>
+  <p>Você definiu a meta de peso como <strong>105–110 kg</strong> e o final do ano como <strong>objetivo de prazo, não obrigação</strong>.
+  O programa foi montado exatamente assim. Vale ter clareza sobre os números:</p>
+
+  <div class="box accent nb">
+    <div class="bt">Projeção honesta</div>
+    <p>Uma taxa de perda sustentável, que preserva massa muscular, fica em torno de <strong>0,4 a 0,7 kg por semana</strong> —
+    contando semanas boas, semanas de platô e oscilações normais de peso.</p>
+    <p>De agosto até 31 de dezembro há aproximadamente <strong>20 semanas</strong>. Isso projeta algo entre
+    <strong>8 e 14 kg</strong>, ou seja, você provavelmente termina o ano na faixa de <strong>111–117 kg</strong>.</p>
+    <p>Os 105–110 kg, nesse ritmo, tendem a chegar entre <strong>fevereiro e abril</strong>. Isso não é um fracasso do plano:
+    é o plano funcionando na velocidade em que ele preserva músculo, força e a recuperação do joelho.
+    Chegar em 108 kg em março, forte e sem dor, é um resultado melhor do que chegar em 108 kg em dezembro,
+    fraco e com o joelho pior.</p>
+    <p><strong>Portanto:</strong> dezembro é um marco de referência para olhar a tendência, não uma linha de chegada.
+    Se o número não estiver lá, a resposta é continuar o mesmo processo em janeiro — não cortar calorias
+    agressivamente nem dobrar o cardio.</p>
+  </div>
+
+  <div class="box nb">
+    <div class="bt">O que este documento não cobre</div>
+    <p>Este é um programa de <strong>treino</strong>. A perda de gordura depende majoritariamente do que acontece na cozinha,
+    e um plano alimentar individualizado — ainda mais para alguém em uso de medicação prescrita — é trabalho de um
+    <strong>nutricionista</strong>. As únicas orientações gerais aqui são: manter um déficit calórico moderado (não agressivo),
+    priorizar proteína para proteger a massa magra durante o emagrecimento, e dormir bem, porque sono ruim
+    atrapalha recuperação, força e controle de apetite ao mesmo tempo.</p>
+  </div>
+
+  <h3>Medicação (Lipoless)</h3>
+  <div class="box warn nb">
+    <div class="bt">Siga exclusivamente quem prescreveu</div>
+    <p>Você informou que utiliza <strong>Lipoless, prescrito para você</strong>. Este documento
+    <strong>não recomenda dose, não sugere alteração e não sugere suspensão</strong> de nenhum medicamento —
+    isso é decisão exclusiva do profissional que prescreveu.</p>
+    <p>Do ponto de vista prático de treino, apenas dois lembretes gerais, válidos para qualquer pessoa
+    treinando pela manhã em déficit calórico:</p>
+    <ul>
+      <li><strong>Hidratação:</strong> leve água para a sessão e beba ao longo do treino, especialmente porque você treina
+      cedo e provavelmente com pouco tempo desde que acordou.</li>
+      <li><strong>Sinais para levar ao prescritor:</strong> tontura, palpitação, frequência cardíaca em repouso mais alta que
+      o habitual, falta de ar desproporcional ao esforço, insônia, ansiedade aumentada ou queda importante de
+      desempenho no treino. Nada disso deve ser "aguentado" — deve ser relatado a quem acompanha você.</li>
+    </ul>
+    <p>Se você tiver qualquer dúvida sobre treinar em jejum, sobre intensidade de cardio ou sobre alimentação
+    enquanto usa a medicação, <strong>a orientação válida é a do profissional que prescreveu</strong>, não a deste documento.</p>
+  </div>
+</section>
+
+<!-- ============ 2. SEGURANÇA ============ -->
+<section>
+  <h2 class="sec"><span class="num">02</span>Orientações de segurança</h2>
+
+  <div class="box danger nb">
+    <div class="bt">Leia antes de cada treino — versão curta</div>
+    <ul>
+      <li><strong>Respeite a dor do joelho.</strong> Dor articular não é sinal de que o exercício "está pegando".</li>
+      <li><strong>Não treine através de dor significativa.</strong> "Forçar a dor para fortalecer" não faz parte deste programa.</li>
+      <li><strong>Se os sintomas piorarem, procure avaliação profissional.</strong> Médico ou fisioterapeuta — dor que persiste,
+      piora, incha ou limita movimento precisa de avaliação presencial, não de ajuste de treino.</li>
+      <li><strong>Técnica antes de carga.</strong> Se a execução mudou para levantar o peso, o peso está errado.</li>
+      <li><strong>Nunca aumente carga e volume ao mesmo tempo de forma agressiva.</strong> Uma variável por vez.</li>
+    </ul>
+  </div>
+
+  <h3>Como diferenciar esforço muscular normal de um sinal de parar</h3>
+  <p>Essa é a distinção mais importante do programa. Use o semáforo abaixo <strong>durante</strong> a série,
+  e a regra das 24 horas <strong>depois</strong> do treino.</p>
+
+  <div class="light">
+    <div class="l-g">
+      <div class="lh">VERDE — siga</div>
+      <ul>
+        <li>Queimação ou "peso" <strong>no músculo</strong> (coxa, glúteo, panturrilha)</li>
+        <li>Fadiga que faz a repetição ficar lenta, mas não muda a trajetória do movimento</li>
+        <li>Desconforto que <strong>some em segundos</strong> ao terminar a série</li>
+        <li>Sensação difusa, distribuída pelo músculo</li>
+        <li>Dor 0–2 em 10</li>
+      </ul>
+    </div>
+    <div class="l-y">
+      <div class="lh">AMARELO — ajuste</div>
+      <ul>
+        <li>Dor <strong>na articulação</strong>, apontável com o dedo</li>
+        <li>"Ferroada" que aparece em uma amplitude específica (geralmente a mais profunda)</li>
+        <li>Sensação de instabilidade ou insegurança no joelho</li>
+        <li>Dor 3–4 em 10</li>
+      </ul>
+      <p style="margin-top:1.5mm"><strong>Ação:</strong> reduza a amplitude até a faixa que não dói,
+      ou reduza a carga, ou troque pela alternativa listada no exercício. Não termine a série "no braço".</p>
+    </div>
+    <div class="l-r">
+      <div class="lh">VERMELHO — pare</div>
+      <ul>
+        <li>Dor acima de 4 em 10</li>
+        <li>Dor que <strong>muda sua execução</strong> (você começa a compensar)</li>
+        <li>Estalo ou travamento <strong>com</strong> dor</li>
+        <li>Joelho quente, inchado ou com aumento de volume</li>
+        <li>Falseio — sensação de que o joelho vai ceder</li>
+      </ul>
+      <p style="margin-top:1.5mm"><strong>Ação:</strong> encerre o exercício naquele dia e
+      <strong>procure fisioterapeuta ou médico</strong>. Não substitua por uma variação "mais leve" do mesmo padrão.</p>
+    </div>
+  </div>
+
+  <div class="box warn nb">
+    <div class="bt">Regra das 24 horas</div>
+    <p>Compare como está o joelho <strong>no dia seguinte</strong> com o dia anterior ao treino.</p>
+    <ul>
+      <li><strong>Igual ou melhor</strong> → o estímulo foi adequado. Pode progredir normalmente.</li>
+      <li><strong>Um pouco mais sensível, mas normaliza até o fim do dia</strong> → estímulo no limite. Mantenha a carga
+      na próxima sessão em vez de aumentar.</li>
+      <li><strong>Pior, inchado, ou ainda ruim em 48 h</strong> → passou do ponto. Volte à carga e à amplitude da sessão
+      anterior. Se acontecer duas vezes seguidas, procure avaliação profissional.</li>
+    </ul>
+    <p>Esse é o dado mais confiável que você tem. Muitas vezes o joelho aguenta bem <em>durante</em> a sessão e cobra
+    depois — por isso o registro diário na ficha de acompanhamento importa tanto.</p>
+  </div>
+
+  <h3>Princípios gerais aplicados ao programa</h3>
+  <ul>
+    <li><strong>Estabilidade primeiro.</strong> Neste momento, exercícios sentados, apoiados ou guiados (leg press, máquinas,
+    halteres com apoio) são priorizados sobre movimentos livres e unilaterais instáveis. Isso reduz a demanda de
+    controle enquanto o joelho ainda está em recuperação, sem abrir mão da carga.</li>
+    <li><strong>Amplitude é uma variável de treino, não um dogma.</strong> Amplitude parcial e indolor, com carga progressiva,
+    é melhor do que amplitude completa com dor. A amplitude é aumentada gradualmente conforme a tolerância — não
+    imposta pelo calendário.</li>
+    <li><strong>Isso não é fisioterapia.</strong> O programa fortalece a musculatura que dá estabilidade ao joelho
+    (quadríceps, posteriores, glúteos, abdutores de quadril, panturrilhas) porque isso é bom para qualquer pessoa.
+    Ele <strong>não</strong> trata a inflamação, não substitui reabilitação e não prescreve exercícios terapêuticos.
+    Se você tem ou teve acompanhamento de fisioterapeuta, o que ele orientou tem prioridade sobre este documento.</li>
+    <li><strong>Exercícios que dependem de avaliação individual</strong> estão marcados no programa com a etiqueta
+    <span class="tag t-joe">avaliar</span>. Eles não são "proibidos" nem "obrigatórios" — dependem de como o
+    <em>seu</em> joelho responde. A cadeira extensora é o exemplo principal.</li>
+  </ul>
+
+  <div class="box nb">
+    <div class="bt">Quando faltar ao treino ou parar antes</div>
+    <p>Cinco sessões por semana é o plano, não uma obrigação moral. Dormiu mal, está doente, joelho sensível,
+    semana difícil? Faça a sessão reduzida (só os 3 primeiros exercícios + cardio leve) ou pule. Consistência ao
+    longo de 8 semanas é o que produz resultado — não a sessão heroica isolada. Perder um treino não muda nada;
+    perder três semanas por uma lesão evitável muda tudo.</p>
+  </div>
+</section>
+
+<!-- ============ 3. ESTRUTURA SEMANAL ============ -->
+<section>
+  <h2 class="sec"><span class="num">03</span>Estrutura semanal e rotação A / B / C</h2>
+
+  <p>Você treina <strong>segunda a sexta</strong>, com três treinos diferentes. Cinco dias não dividem exatamente por três,
+  então a solução é simples e é a chave de todo o programa:</p>
+
+  <div class="box accent nb">
+    <div class="bt">A regra única da rotação</div>
+    <p style="font-size:11pt"><strong>Nunca reinicie a semana no Treino A. Continue a sequência A → B → C → A → B → C de onde parou
+    na sexta-feira anterior.</strong></p>
+    <p>Isso faz cada treino receber exatamente a mesma frequência ao longo do tempo, sem você precisar controlar nada:
+    basta olhar qual foi o último treino e fazer o próximo da fila.</p>
+  </div>
+
+  <h3>Como isso se distribui</h3>
+  <p>O padrão se fecha a cada <strong>3 semanas</strong> (15 sessões = 5 de cada treino) e depois se repete idêntico:</p>
+
+  <table class="tight">
+    <thead>
+      <tr><th style="width:22%">Semana</th><th>Segunda</th><th>Terça</th><th>Quarta</th><th>Quinta</th><th>Sexta</th><th style="width:20%">Sáb / Dom</th></tr>
+    </thead>
+    <tbody>
+      <tr><td class="ex">1 · 4 · 7</td><td class="c">A</td><td class="c">B</td><td class="c">C</td><td class="c">A</td><td class="c">B</td><td class="c">Descanso ativo</td></tr>
+      <tr><td class="ex">2 · 5 · 8</td><td class="c">C</td><td class="c">A</td><td class="c">B</td><td class="c">C</td><td class="c">A</td><td class="c">Descanso ativo</td></tr>
+      <tr><td class="ex">3 · 6</td><td class="c">B</td><td class="c">C</td><td class="c">A</td><td class="c">B</td><td class="c">C</td><td class="c">Descanso ativo</td></tr>
+    </tbody>
+  </table>
+
+  <p class="small muted">A sequência nunca quebra: a semana 1 termina em B na sexta e a semana 2 começa em C na segunda.
+  Nenhum treino cai em dois dias seguidos, e o Treino C mantém pelo menos 2 dias de intervalo. Em 8 semanas, cada treino é feito 13 ou 14 vezes.</p>
+
+  <h3>Frequência resultante por treino</h3>
+  <table class="tight">
+    <thead><tr><th>Treino</th><th>Foco</th><th style="width:16%">Frequência</th><th>Por que essa distribuição</th></tr></thead>
+    <tbody>
+      <tr><td class="ex">A</td><td>Empurrar — peito, ombros, tríceps + core anti-extensão</td><td class="c">~1,7×/sem</td><td>Volume moderado; o ombro recebe estímulo indireto no Treino B.</td></tr>
+      <tr><td class="ex">B</td><td>Puxar — costas, bíceps, antebraço, pegada + core anti-rotação</td><td class="c">~1,7×/sem</td><td>Puxar tem volume maior que empurrar — melhor para postura, ombro e base da barra fixa.</td></tr>
+      <tr><td class="ex">C</td><td>Pernas, quadril, panturrilha + core lateral</td><td class="c">~1,7×/sem</td><td>Proposital: dá margem de recuperação ao joelho e permite avaliar a resposta de 24 h entre as sessões.</td></tr>
+    </tbody>
+  </table>
+
+  <h3>Sábado e domingo</h3>
+  <p><strong>Opcional.</strong> Uma caminhada de 30–45 min em ritmo confortável em um dos dois dias ajuda no gasto energético
+  e costuma ser bem tolerada pelo joelho. Se o joelho estiver sensível, troque por bicicleta leve ou descanse.
+  Fim de semana não é lugar para "compensar" nada.</p>
+
+  <h3>Ordem de cada sessão (60–75 min)</h3>
+  <div class="flow">
+    <div><div class="fn">8 min</div><div class="ft">Aquecimento</div></div>
+    <div><div class="fn">30–38 min</div><div class="ft">Musculação</div></div>
+    <div><div class="fn">6–8 min</div><div class="ft">Core</div></div>
+    <div><div class="fn">15–25 min</div><div class="ft">Cardio</div></div>
+    <div><div class="fn">3 min</div><div class="ft">Finalização</div></div>
+  </div>
+  <p class="small muted">O cardio vem <strong>depois</strong> da musculação de propósito: fazer cardio antes reduz a força
+  disponível para as séries pesadas, que é justamente o que você não quer perder enquanto emagrece. Se algum dia o tempo
+  apertar, corte o cardio — nunca a musculação.</p>
+</section>
+
+<!-- ============ 4. AQUECIMENTO ============ -->
+<section>
+  <h2 class="sec"><span class="num">04</span>Aquecimento — 8 minutos, todos os dias</h2>
+
+  <p>Curto e objetivo. A função é elevar a temperatura, lubrificar as articulações e preparar o padrão do dia —
+  não é uma sessão de mobilidade de 25 minutos.</p>
+
+  <table>
+    <thead><tr><th style="width:8%">#</th><th style="width:30%">Item</th><th style="width:16%">Duração</th><th>Como fazer</th></tr></thead>
+    <tbody>
+      <tr><td class="c">1</td><td class="ex">Bicicleta ergométrica leve</td><td class="c">4–5 min</td><td>Carga baixa, RPE 3–4 (respiração tranquila, dá para conversar). Ajuste o banco <strong>alto o suficiente</strong> para que o joelho não flexione demais no ponto mais baixo do pedal — isso costuma ser o detalhe que faz diferença para joelho sensível.</td></tr>
+      <tr><td class="c">2</td><td class="ex">Elevação de panturrilha em pé</td><td class="c">15 reps</td><td>Sem carga, amplitude confortável. Aquece tornozelo e panturrilha, que participam da estabilidade do joelho.</td></tr>
+      <tr><td class="c">3</td><td class="ex">Ponte de glúteo no solo</td><td class="c">12 reps</td><td>Deitado, joelhos dobrados, empurre pelos calcanhares e aperte o glúteo 1 s no topo. Ativa o glúteo antes de qualquer coisa — vale principalmente nos dias de Treino C.</td></tr>
+      <tr><td class="c">4</td><td class="ex">Gato-camelo</td><td class="c">8 reps</td><td>Apoiado em quatro apoios, alterne arredondar e estender a coluna com calma. Mobilidade de coluna antes do core.</td></tr>
+      <tr><td class="c">5</td><td class="ex">Abertura com elástico (band pull-apart)</td><td class="c">15 reps</td><td><strong>Dias A e B.</strong> Elástico à frente do peito, braços quase estendidos, abra até a linha do tronco juntando as escápulas. Prepara ombro e escápula.</td></tr>
+      <tr><td class="c">6</td><td class="ex">Série de aproximação</td><td class="c">1 série</td><td>No <strong>primeiro exercício do dia</strong>, faça 8–10 repetições com cerca de 50 % da carga de trabalho. Não conta como série válida e não vai ao esforço.</td></tr>
+    </tbody>
+  </table>
+
+  <div class="box nb">
+    <div class="bt">Nos dias de Treino C, acrescente</div>
+    <p>Antes do leg press, faça <strong>1 série extra de aproximação</strong> com carga bem leve e amplitude progressiva:
+    comece com meia amplitude nas primeiras repetições e vá aumentando <em>somente até onde não incomoda</em>.
+    Essa série serve como <strong>teste diário do joelho</strong>: é ali que você descobre, antes de qualquer carga real,
+    se hoje é um dia verde, amarelo ou vermelho — e ajusta a sessão a partir disso.</p>
+  </div>
+
+  <h3>Finalização (3 min, opcional)</h3>
+  <p>Ao fim do cardio: 5 minutos de caminhada muito leve para baixar a frequência cardíaca, e alongamentos suaves
+  e <strong>sem dor</strong> de quadríceps, posteriores e panturrilha, 20–30 s cada. Alongamento aqui é conforto e desaceleração,
+  não é performance — não force amplitude e não alongue nada que provoque dor no joelho.</p>
+</section>
+
+<!-- ============ 5. TREINO A ============ -->
+<section>
+  <h2 class="sec"><span class="num">05</span>Treino A — Empurrar + Core anti-extensão</h2>
+  <p class="muted small">Peito · Ombros · Tríceps · Deltoide posterior · Core anti-extensão &nbsp;|&nbsp; ~34 min de musculação + 7 min de core</p>
+
+  <table>
+    <thead>
+      <tr><th style="width:24%">Exercício</th><th style="width:7%">Séries</th><th style="width:11%">Reps</th><th style="width:11%">Descanso</th><th style="width:8%">RIR</th><th style="width:16%">Objetivo</th><th>Observações</th></tr>
+    </thead>
+    <tbody>
+      <tr><td class="ex">A1 · Supino reto com halteres</td><td class="c">3</td><td class="c">8–10</td><td class="c">90 s</td><td class="c">2</td><td>Força de empurrar horizontal</td><td>Movimento principal do dia. Faça primeiro, quando você está mais forte.</td></tr>
+      <tr><td class="ex">A2 · Desenvolvimento sentado com halteres</td><td class="c">3</td><td class="c">8–10</td><td class="c">90 s</td><td class="c">2</td><td>Força de ombro</td><td>Banco a ~80°, não totalmente vertical — costuma ser mais confortável para o ombro.</td></tr>
+      <tr><td class="ex">A3 · Flexão em progressão (inclinada)</td><td class="c">3</td><td class="c">8–15</td><td class="c">75 s</td><td class="c">2</td><td>Controle do peso corporal</td><td>Use a altura da escada de progressão da seção 10. Não vá à falha.</td></tr>
+      <tr><td class="ex">A4 · Elevação lateral com halteres</td><td class="c">3</td><td class="c">12–15</td><td class="c">60 s</td><td class="c">1–2</td><td>Deltoide lateral</td><td>Carga leve. É o único exercício de elevação do programa — de propósito.</td></tr>
+      <tr><td class="ex">A5 · Tríceps na polia com corda</td><td class="c">3</td><td class="c">10–12</td><td class="c">60 s</td><td class="c">1–2</td><td>Tríceps</td><td>Cotovelos parados ao lado do corpo.</td></tr>
+      <tr><td class="ex">A6 · Face pull (remada alta com corda)</td><td class="c">3</td><td class="c">12–15</td><td class="c">60 s</td><td class="c">2</td><td>Deltoide posterior, escápulas, estabilizadores</td><td>Carga leve, execução limpa. É saúde de ombro, não exercício de força.</td></tr>
+      <tr style="background:var(--accent-soft)"><td class="ex">Core · Prancha frontal</td><td class="c">3</td><td class="c">20–60 s</td><td class="c">45 s</td><td class="c">—</td><td>Anti-extensão</td><td>Comece na altura indicada na seção 9. Teto de 60 s: depois disso, aumente dificuldade, não tempo.</td></tr>
+      <tr style="background:var(--accent-soft)"><td class="ex">Core · Dead bug</td><td class="c">2</td><td class="c">8/lado</td><td class="c">45 s</td><td class="c">—</td><td>Controle lombopélvico</td><td>Lombar colada no chão o tempo todo. Se ela levantar, reduza a amplitude da perna.</td></tr>
+      <tr style="background:#eef0f3"><td class="ex">Cardio</td><td class="c">1</td><td class="c">15–25 min</td><td class="c">—</td><td class="c">—</td><td>Condicionamento</td><td>Ver seção 8 para intensidade e progressão da semana.</td></tr>
+    </tbody>
+  </table>
+
+  <h3>Detalhes por exercício</h3>
+  <div class="cards">
+    <div class="card">
+      <div class="name">A1 · Supino reto com halteres</div>
+      <div class="row"><span class="tag t-mus">músculo</span>Peitoral maior, deltoide anterior, tríceps</div>
+      <div class="row"><span class="tag t-tec">técnica</span>Escápulas retraídas e apoiadas no banco. Desça até o haltere ficar na linha do peito, sem "afundar" o ombro à frente. Cotovelos a ~45° do tronco, não abertos a 90°.</div>
+      <div class="row"><span class="tag t-alt">se ocupado</span>Supino na máquina (chest press) ou supino reto na barra guiada</div>
+      <div class="row"><span class="tag t-joe">joelho</span>Sem impacto. Se sentar/levantar do banco com halteres pesados incomodar, peça ajuda para entregar os halteres ou use a máquina.</div>
+    </div>
+    <div class="card">
+      <div class="name">A2 · Desenvolvimento sentado com halteres</div>
+      <div class="row"><span class="tag t-mus">músculo</span>Deltoide anterior e lateral, tríceps, trapézio superior</div>
+      <div class="row"><span class="tag t-tec">técnica</span>Não trave o cotovelo com força no topo e não deixe as costelas "saltarem" à frente — mantenha as costelas para baixo e o abdômen ativo. Desça até o cotovelo na altura da orelha, sem forçar amplitude.</div>
+      <div class="row"><span class="tag t-alt">se ocupado</span>Desenvolvimento na máquina (shoulder press) ou desenvolvimento na barra guiada</div>
+      <div class="row"><span class="tag t-joe">joelho</span>Sem impacto. Exercício sentado com apoio — bem tolerado.</div>
+    </div>
+    <div class="card">
+      <div class="name">A3 · Flexão em progressão</div>
+      <div class="row"><span class="tag t-mus">músculo</span>Peitoral, tríceps, deltoide anterior, serrátil e core</div>
+      <div class="row"><span class="tag t-tec">técnica</span>Corpo em prancha rígida da cabeça ao calcanhar — o quadril não pode ceder nem subir. É melhor fazer 8 repetições perfeitas numa superfície mais alta do que 15 tortas mais baixo.</div>
+      <div class="row"><span class="tag t-alt">se ocupado</span>Qualquer superfície estável serve: barra do Smith travada na altura, banco, step, bancada</div>
+      <div class="row"><span class="tag t-joe">joelho</span>Sem impacto na versão inclinada. <strong>Evite a versão de joelhos no chão</strong> enquanto o joelho estiver sensível — ela apoia peso diretamente na patela. A inclinada é melhor de qualquer forma.</div>
+    </div>
+    <div class="card">
+      <div class="name">A4 · Elevação lateral com halteres</div>
+      <div class="row"><span class="tag t-mus">músculo</span>Deltoide lateral</div>
+      <div class="row"><span class="tag t-tec">técnica</span>Cotovelo levemente flexionado e fixo; suba até a altura do ombro, não além. Se o tronco balança para gerar impulso, a carga está alta — este exercício quase sempre é feito com peso excessivo.</div>
+      <div class="row"><span class="tag t-alt">se ocupado</span>Elevação lateral na polia baixa (um braço por vez) ou na máquina</div>
+      <div class="row"><span class="tag t-joe">joelho</span>Sem impacto. Se ficar em pé por muito tempo incomodar, faça sentado no banco.</div>
+    </div>
+    <div class="card">
+      <div class="name">A5 · Tríceps na polia com corda</div>
+      <div class="row"><span class="tag t-mus">músculo</span>Tríceps braquial</div>
+      <div class="row"><span class="tag t-tec">técnica</span>Cotovelos colados ao lado do corpo e imóveis — só o antebraço se move. Abra levemente a corda no final do movimento.</div>
+      <div class="row"><span class="tag t-alt">se ocupado</span>Tríceps na polia com barra reta ou barra V; tríceps francês com halter</div>
+      <div class="row"><span class="tag t-joe">joelho</span>Sem impacto. Fique com os pés paralelos e o peso distribuído, sem travar os joelhos em hiperextensão.</div>
+    </div>
+    <div class="card">
+      <div class="name">A6 · Face pull</div>
+      <div class="row"><span class="tag t-mus">músculo</span>Deltoide posterior, romboides, trapézio médio, rotadores externos do ombro</div>
+      <div class="row"><span class="tag t-tec">técnica</span>Polia na altura do rosto ou levemente acima. Puxe a corda <strong>em direção ao rosto</strong> abrindo as mãos, com os cotovelos altos, na linha dos ombros. O objetivo é sentir a parte de trás do ombro, não puxar peso.</div>
+      <div class="row"><span class="tag t-alt">se ocupado</span>Abertura com elástico (band pull-apart) 3×20, ou crucifixo inverso na máquina</div>
+      <div class="row"><span class="tag t-joe">joelho</span>Sem impacto. Pode ser feito ajoelhado — mas <strong>não</strong> enquanto o joelho estiver sensível. Faça em pé.</div>
+    </div>
+  </div>
+</section>
+
+<!-- ============ 6. TREINO B ============ -->
+<section>
+  <h2 class="sec"><span class="num">06</span>Treino B — Puxar + Pegada + Core anti-rotação</h2>
+  <p class="muted small">Costas · Bíceps · Antebraços · Pegada · Core anti-rotação &nbsp;|&nbsp; ~36 min de musculação + 6 min de core</p>
+
+  <table>
+    <thead>
+      <tr><th style="width:24%">Exercício</th><th style="width:7%">Séries</th><th style="width:11%">Reps</th><th style="width:11%">Descanso</th><th style="width:8%">RIR</th><th style="width:16%">Objetivo</th><th>Observações</th></tr>
+    </thead>
+    <tbody>
+      <tr><td class="ex">B1 · Puxada alta na polia</td><td class="c">3</td><td class="c">8–10</td><td class="c">90 s</td><td class="c">2</td><td>Força de puxada vertical</td><td>Base direta para a barra fixa. Movimento principal do dia.</td></tr>
+      <tr><td class="ex">B2 · Remada sentada na polia</td><td class="c">3</td><td class="c">10–12</td><td class="c">90 s</td><td class="c">2</td><td>Costas médias, espessura</td><td>Puxe com as costas, não com os braços. Peito alto.</td></tr>
+      <tr><td class="ex">B3 · Remada invertida</td><td class="c">3</td><td class="c">6–12</td><td class="c">75 s</td><td class="c">2</td><td>Controle do peso corporal</td><td>Ajuste a altura da barra pela escada da seção 10. Registre a altura usada.</td></tr>
+      <tr><td class="ex">B4 · Pendura na barra (dead hang)</td><td class="c">3</td><td class="c">15–40 s</td><td class="c">60 s</td><td class="c">—</td><td>Pegada + base para barra fixa</td><td>Com 125 kg, comece com os pés apoiados tirando parte do peso.</td></tr>
+      <tr><td class="ex">B5 · Rosca martelo com halteres</td><td class="c">3</td><td class="c">10–12</td><td class="c">60 s</td><td class="c">1–2</td><td>Bíceps + braquiorradial (antebraço)</td><td>Único exercício direto de bíceps — a pegada neutra também trabalha o antebraço.</td></tr>
+      <tr><td class="ex">B6 · Rosca de punho + Extensão de punho</td><td class="c">2+2</td><td class="c">12–15</td><td class="c">45 s</td><td class="c">2</td><td>Punhos e antebraços</td><td>Pareados: faça um logo após o outro. Carga bem leve, amplitude completa.</td></tr>
+      <tr><td class="ex">B7 · Farmer's walk</td><td class="c">2</td><td class="c">30–40 m</td><td class="c">90 s</td><td class="c">—</td><td>Pegada, tronco, sustentação de carga</td><td>Percurso plano e livre. Sem pressa — não é corrida.</td></tr>
+      <tr style="background:var(--accent-soft)"><td class="ex">Core · Pallof press</td><td class="c">3</td><td class="c">10/lado</td><td class="c">45 s</td><td class="c">—</td><td>Anti-rotação</td><td>Resista à rotação. Se você inclina para o lado, a carga está alta.</td></tr>
+      <tr style="background:#eef0f3"><td class="ex">Cardio</td><td class="c">1</td><td class="c">15–25 min</td><td class="c">—</td><td class="c">—</td><td>Condicionamento</td><td>Ver seção 8.</td></tr>
+    </tbody>
+  </table>
+
+  <h3>Detalhes por exercício</h3>
+  <div class="cards">
+    <div class="card">
+      <div class="name">B1 · Puxada alta na polia</div>
+      <div class="row"><span class="tag t-mus">músculo</span>Latíssimo do dorso, redondo maior, bíceps, romboides</div>
+      <div class="row"><span class="tag t-tec">técnica</span>Antes de dobrar o cotovelo, <strong>deprima a escápula</strong> (puxe o ombro para baixo). Traga a barra até a clavícula com o tronco levemente inclinado para trás e estável — sem balançar. Suba controlado até estender totalmente os braços.</div>
+      <div class="row"><span class="tag t-alt">se ocupado</span>Puxada na máquina articulada, ou máquina de barra fixa assistida</div>
+      <div class="row"><span class="tag t-joe">joelho</span>Sem impacto. O apoio das coxas prende as pernas — ajuste o apoio para não pressionar o joelho.</div>
+    </div>
+    <div class="card">
+      <div class="name">B2 · Remada sentada na polia</div>
+      <div class="row"><span class="tag t-mus">músculo</span>Costas médias, romboides, trapézio médio, latíssimo, bíceps</div>
+      <div class="row"><span class="tag t-tec">técnica</span>Tronco quase parado — não use o balanço do corpo como alavanca. Puxe até o abdômen, junte as escápulas no final, e deixe as escápulas se afastarem na volta (sem arredondar a lombar).</div>
+      <div class="row"><span class="tag t-alt">se ocupado</span>Remada na máquina (lever seated row) ou remada unilateral com halter apoiado no banco</div>
+      <div class="row"><span class="tag t-joe">joelho</span><strong>Atenção.</strong> Na remada sentada, o padrão de empurrar com as pernas contra o apoio pode incomodar. Mantenha os joelhos levemente flexionados e <strong>não empurre com as pernas</strong> a cada repetição. Se incomodar, troque pela remada unilateral com halter.</div>
+    </div>
+    <div class="card">
+      <div class="name">B3 · Remada invertida</div>
+      <div class="row"><span class="tag t-mus">músculo</span>Costas médias, latíssimo, deltoide posterior, bíceps, core</div>
+      <div class="row"><span class="tag t-tec">técnica</span>Corpo rígido em linha reta — o quadril não pode ficar para trás. Puxe até o peito tocar (ou quase tocar) a barra. É o inverso da flexão e o melhor construtor de base para a barra fixa.</div>
+      <div class="row"><span class="tag t-alt">se ocupado</span>Barra do Smith travada na altura desejada, ou fitas de suspensão (TRX)</div>
+      <div class="row"><span class="tag t-joe">joelho</span>Nas versões iniciais os joelhos ficam dobrados com os pés no chão — <strong>ângulo confortável, sem flexão profunda</strong>. Se incomodar, use a versão com pernas estendidas e calcanhares apoiados, que não flexiona o joelho.</div>
+    </div>
+    <div class="card">
+      <div class="name">B4 · Pendura na barra (dead hang)</div>
+      <div class="row"><span class="tag t-mus">músculo</span>Flexores dos dedos e antebraço, latíssimo, ombro, escápula</div>
+      <div class="row"><span class="tag t-tec">técnica</span>Com 125 kg, <strong>não pendure com o peso todo de início</strong>. Use uma barra baixa ou um step, mantendo parte do peso nos pés, e vá tirando peso progressivamente. Ombros não devem ficar totalmente "soltos" — mantenha uma leve ativação.</div>
+      <div class="row"><span class="tag t-alt">se ocupado</span>Farmer's walk mais longo, ou segurar halteres pesados parado por 30 s</div>
+      <div class="row"><span class="tag t-joe">joelho</span>Sem impacto se você usar apoio dos pés no chão/step. Evite saltar para alcançar a barra — <strong>a aterrissagem é a parte que carrega o joelho</strong>. Use step para subir e descer.</div>
+    </div>
+    <div class="card">
+      <div class="name">B5 · Rosca martelo com halteres</div>
+      <div class="row"><span class="tag t-mus">músculo</span>Bíceps, braquial e <strong>braquiorradial</strong> (antebraço)</div>
+      <div class="row"><span class="tag t-tec">técnica</span>Pegada neutra (palmas viradas uma para a outra) o tempo todo. Cotovelos ao lado do corpo, sem balanço de tronco. Desça controlado — a fase excêntrica é onde o antebraço trabalha.</div>
+      <div class="row"><span class="tag t-alt">se ocupado</span>Rosca martelo na polia com corda, ou rosca alternada com halteres</div>
+      <div class="row"><span class="tag t-joe">joelho</span>Sem impacto. Faça sentado se preferir.</div>
+    </div>
+    <div class="card">
+      <div class="name">B6 · Rosca e extensão de punho</div>
+      <div class="row"><span class="tag t-mus">músculo</span>Flexores do punho (rosca) e extensores do punho (extensão)</div>
+      <div class="row"><span class="tag t-tec">técnica</span>Antebraços apoiados nas coxas ou no banco, punhos livres além do joelho. Amplitude completa e lenta. <strong>Sempre faça os dois</strong> — treinar só a flexão cria desequilíbrio e é uma causa comum de dor de cotovelo.</div>
+      <div class="row"><span class="tag t-alt">se ocupado</span>Versão com barra em vez de halteres, ou na polia baixa</div>
+      <div class="row"><span class="tag t-joe">joelho</span>Sem impacto. Se apoiar os antebraços nas coxas incomodar, use a borda do banco como apoio.</div>
+    </div>
+    <div class="card">
+      <div class="name">B7 · Farmer's walk</div>
+      <div class="row"><span class="tag t-mus">músculo</span>Pegada e antebraço, trapézio, core, glúteos, postura global</div>
+      <div class="row"><span class="tag t-tec">técnica</span>Pegue os halteres com <strong>as pernas, não com as costas</strong>. Ombros para trás e para baixo, tronco ereto, passos curtos e controlados. Comece com uma carga que você segure com folga por 30 m.</div>
+      <div class="row"><span class="tag t-alt">se ocupado</span>Se não houver espaço, segure os halteres parado por 30–45 s (isometria de pegada)</div>
+      <div class="row"><span class="tag t-joe">joelho</span><strong>Avalie individualmente.</strong> Caminhar com carga aumenta a demanda no joelho. Comece leve, em piso plano, passos curtos. Se incomodar, substitua pela versão parada (isometria) — o ganho de pegada é praticamente o mesmo.</div>
+    </div>
+    <div class="card">
+      <div class="name">Core · Pallof press</div>
+      <div class="row"><span class="tag t-mus">músculo</span>Oblíquos, transverso do abdômen, reto abdominal — em função anti-rotação</div>
+      <div class="row"><span class="tag t-tec">técnica</span>De lado para a polia, pés na largura do quadril (não abra a base — a base larga faz o trabalho pelo core). Leve as mãos do peito até a extensão total à frente <strong>sem deixar o tronco girar</strong>. Se você precisa se inclinar para o lado oposto para aguentar, a carga está alta.</div>
+      <div class="row"><span class="tag t-alt">se ocupado</span>Mesma execução com elástico preso em um ponto fixo</div>
+      <div class="row"><span class="tag t-joe">joelho</span>Sem impacto. Em pé com joelhos levemente flexionados — não ajoelhado.</div>
+    </div>
+  </div>
+</section>
+
+<!-- ============ 7. TREINO C ============ -->
+<section>
+  <h2 class="sec"><span class="num">07</span>Treino C — Membros inferiores + Quadril + Core lateral</h2>
+  <p class="muted small">Quadríceps · Posteriores · Glúteos · Abdutores · Panturrilhas · Core lateral &nbsp;|&nbsp; ~35 min de musculação + 6 min de core</p>
+
+  <div class="box warn nb">
+    <div class="bt">Este é o treino que exige mais atenção</div>
+    <p>A ordem foi escolhida de propósito: o exercício de maior demanda no joelho vem <strong>primeiro</strong>, quando você
+    está descansado e com melhor controle, e o restante da sessão migra progressivamente para movimentos de quadril,
+    que carregam pouco o joelho. Faça sempre a <strong>série de teste</strong> descrita no aquecimento antes de decidir a carga do dia.</p>
+    <p>Se o joelho estiver em dia amarelo: reduza a amplitude do leg press, corte a cadeira extensora e mantenha
+    o resto da sessão normalmente. Um dia ruim de joelho não é motivo para pular o treino inteiro — glúteo,
+    posterior, abdutor e panturrilha continuam treináveis.</p>
+  </div>
+
+  <table>
+    <thead>
+      <tr><th style="width:24%">Exercício</th><th style="width:7%">Séries</th><th style="width:11%">Reps</th><th style="width:11%">Descanso</th><th style="width:8%">RIR</th><th style="width:16%">Objetivo</th><th>Observações</th></tr>
+    </thead>
+    <tbody>
+      <tr><td class="ex">C1 · Leg press 45° <span class="tag t-joe" style="vertical-align:0">avaliar</span></td><td class="c">3</td><td class="c">10–12</td><td class="c">120 s</td><td class="c">2–3</td><td>Força de membros inferiores</td><td><strong>Amplitude parcial e indolor.</strong> Aumente a amplitude ao longo das semanas, não a força.</td></tr>
+      <tr><td class="ex">C2 · Elevação pélvica (hip thrust)</td><td class="c">3</td><td class="c">10–12</td><td class="c">90 s</td><td class="c">2</td><td>Glúteo máximo</td><td>Carga alta possível com demanda mínima no joelho — o melhor custo-benefício desta fase.</td></tr>
+      <tr><td class="ex">C3 · Stiff com halteres</td><td class="c">3</td><td class="c">8–10</td><td class="c">90 s</td><td class="c">2–3</td><td>Posteriores de coxa e glúteo</td><td>Joelho quase fixo, movimento vem do quadril. Amplitude limitada pelo alongamento do posterior.</td></tr>
+      <tr><td class="ex">C4 · Mesa flexora</td><td class="c">3</td><td class="c">10–12</td><td class="c">75 s</td><td class="c">2</td><td>Posteriores de coxa (isolado)</td><td>Importante para o equilíbrio de força ao redor do joelho.</td></tr>
+      <tr><td class="ex">C5 · Abdução de quadril na máquina</td><td class="c">2</td><td class="c">12–15</td><td class="c">45 s</td><td class="c">2</td><td>Glúteo médio, estabilidade de quadril e joelho</td><td>Pareado com C6. Movimento lento, sem impulso de tronco.</td></tr>
+      <tr><td class="ex">C6 · Panturrilha em pé</td><td class="c">3</td><td class="c">10–15</td><td class="c">45 s</td><td class="c">1–2</td><td>Gastrocnêmio e sóleo</td><td>Pareado com C5. Pausa de 1 s no topo e descida lenta.</td></tr>
+      <tr><td class="ex">C7 · Cadeira extensora <span class="tag t-joe" style="vertical-align:0">avaliar</span></td><td class="c">2</td><td class="c">12–15</td><td class="c">60 s</td><td class="c">3</td><td>Quadríceps (isolado)</td><td><strong>Entra a partir da Semana 3</strong> e somente em dias verdes. Amplitude parcial. Ver caixa abaixo.</td></tr>
+      <tr style="background:var(--accent-soft)"><td class="ex">Core · Prancha lateral</td><td class="c">3/lado</td><td class="c">15–45 s</td><td class="c">40 s</td><td class="c">—</td><td>Anti-flexão lateral, oblíquos, glúteo médio</td><td>Comece com joelhos dobrados. Ver seção 9.</td></tr>
+      <tr style="background:#eef0f3"><td class="ex">Cardio</td><td class="c">1</td><td class="c">15–20 min</td><td class="c">—</td><td class="c">—</td><td>Condicionamento</td><td>Nos dias de Treino C, prefira <strong>bicicleta</strong> e mantenha a intensidade mais baixa.</td></tr>
+    </tbody>
+  </table>
+
+  <div class="box danger nb">
+    <div class="bt">Sobre a cadeira extensora — leia antes de usar</div>
+    <p>A cadeira extensora é excelente para fortalecer quadríceps e é usada rotineiramente em reabilitação — mas ela
+    também é o exercício deste programa com maior demanda direta na articulação do joelho, especialmente na parte
+    final da extensão e nas amplitudes mais fechadas. <strong>Se ela é ou não apropriada para o seu caso depende da
+    avaliação de um profissional que examine o seu joelho</strong>, e este documento não tem como responder isso.</p>
+    <p>Por isso ela entra <strong>por último, só a partir da Semana 3, com 2 séries, carga leve, RIR 3 e amplitude parcial</strong>.
+    Comece com uma amplitude curta e confortável e teste a resposta de 24 horas antes de aumentar qualquer coisa.
+    Se em qualquer momento aparecer dor articular, retire-a do programa — o quadríceps continua sendo treinado
+    pelo leg press. <strong>Ela é opcional. O programa funciona sem ela.</strong></p>
+  </div>
+
+  <h3>Detalhes por exercício</h3>
+  <div class="cards">
+    <div class="card">
+      <div class="name">C1 · Leg press 45°</div>
+      <div class="row"><span class="tag t-mus">músculo</span>Quadríceps, glúteo máximo, adutor magno, posteriores</div>
+      <div class="row"><span class="tag t-tec">técnica</span>Pés na largura dos ombros, um pouco <strong>altos na plataforma</strong> (isso reduz a flexão de joelho e distribui mais para glúteo e posterior). Joelhos apontando na mesma direção dos pés. Desça <strong>só até onde não há desconforto</strong> e nunca até o quadril descolar do encosto. Não trave os joelhos no topo.</div>
+      <div class="row"><span class="tag t-alt">se ocupado</span>Leg press horizontal (sentado) — na prática costuma ser ainda mais confortável para joelho sensível</div>
+      <div class="row"><span class="tag t-joe">joelho</span>Reduza a amplitude antes de reduzir a carga. Se ainda incomodar: suba mais os pés na plataforma, ou substitua por <strong>elevação pélvica + stiff com séries extras</strong>, que treinam a perna sem flexão profunda de joelho.</div>
+    </div>
+    <div class="card">
+      <div class="name">C2 · Elevação pélvica (hip thrust)</div>
+      <div class="row"><span class="tag t-mus">músculo</span>Glúteo máximo, posteriores de coxa</div>
+      <div class="row"><span class="tag t-tec">técnica</span>Costas apoiadas na borda do banco, na linha das escápulas. Suba até tronco e coxa formarem uma linha reta e <strong>pare ali</strong> — não hiperestenda a lombar. Queixo levemente para baixo. Empurre pelos calcanhares. Use um pad ou toalha dobrada sobre o quadril.</div>
+      <div class="row"><span class="tag t-alt">se ocupado</span>Máquina de hip thrust, ou ponte de glúteo no solo com halter sobre o quadril</div>
+      <div class="row"><span class="tag t-joe">joelho</span><strong>Melhor exercício de perna do programa para o seu caso:</strong> permite carga alta com pouquíssima demanda no joelho. Se incomodar, afaste os pés um pouco mais do quadril, o que abre o ângulo do joelho.</div>
+    </div>
+    <div class="card">
+      <div class="name">C3 · Stiff com halteres</div>
+      <div class="row"><span class="tag t-mus">músculo</span>Posteriores de coxa, glúteo máximo, eretores da espinha</div>
+      <div class="row"><span class="tag t-tec">técnica</span>Joelhos com flexão leve e <strong>constante</strong> — não dobre nem estenda durante o movimento. Empurre o quadril para trás, halteres deslizando junto às coxas, costas retas. Desça <strong>só até sentir o alongamento no posterior</strong> — no momento em que a lombar começar a arredondar, você já passou do ponto. Não é preciso encostar no chão.</div>
+      <div class="row"><span class="tag t-alt">se ocupado</span>Stiff na barra, ou mesa flexora com séries extras</div>
+      <div class="row"><span class="tag t-joe">joelho</span>Muito bem tolerado — o joelho quase não se move. Se houver desconforto na parte de trás do joelho, reduza a amplitude e a carga.</div>
+    </div>
+    <div class="card">
+      <div class="name">C4 · Mesa flexora</div>
+      <div class="row"><span class="tag t-mus">músculo</span>Posteriores de coxa (isquiotibiais)</div>
+      <div class="row"><span class="tag t-tec">técnica</span>Alinhe o <strong>eixo do joelho com o eixo da máquina</strong> — esse é o detalhe que mais muda o conforto. Quadril colado no apoio, sem levantar. Suba com força e desça em 2–3 s.</div>
+      <div class="row"><span class="tag t-alt">se ocupado</span>Flexora sentada, ou flexora em pé (unilateral)</div>
+      <div class="row"><span class="tag t-joe">joelho</span>Geralmente bem tolerado e é <strong>importante</strong>: posteriores fortes ajudam a equilibrar as forças ao redor do joelho. Se a amplitude final (joelho muito dobrado) incomodar, use amplitude parcial.</div>
+    </div>
+    <div class="card">
+      <div class="name">C5 · Abdução de quadril na máquina</div>
+      <div class="row"><span class="tag t-mus">músculo</span>Glúteo médio e mínimo, tensor da fáscia lata</div>
+      <div class="row"><span class="tag t-tec">técnica</span>Abra devagar, segure meio segundo no final e volte controlado. Não jogue o tronco para trás para ganhar amplitude. Amplitude moderada é suficiente.</div>
+      <div class="row"><span class="tag t-alt">se ocupado</span>Abdução em pé na polia baixa, ou caminhada lateral com mini-band acima dos joelhos</div>
+      <div class="row"><span class="tag t-joe">joelho</span>Sem demanda no joelho e diretamente relacionado à estabilidade de quadril — que por sua vez influencia como o joelho se comporta. Boa escolha nesta fase.</div>
+    </div>
+    <div class="card">
+      <div class="name">C6 · Panturrilha em pé na máquina</div>
+      <div class="row"><span class="tag t-mus">músculo</span>Gastrocnêmio (em pé) e sóleo (sentado)</div>
+      <div class="row"><span class="tag t-tec">técnica</span>Apoie a ponta do pé na plataforma com o calcanhar livre. Suba o máximo possível, <strong>pause 1 s no topo</strong>, desça lentamente até alongar. Amplitude completa importa mais que carga aqui.</div>
+      <div class="row"><span class="tag t-alt">se ocupado</span>Panturrilha no leg press, ou panturrilha sentada (que enfatiza o sóleo)</div>
+      <div class="row"><span class="tag t-joe">joelho</span>Em pé, o joelho fica estendido e a demanda é mínima. Se ficar em pé com carga nos ombros incomodar, use a <strong>panturrilha no leg press</strong>, que é sentado.</div>
+    </div>
+  </div>
+</section>
+
+<!-- ============ 8. CARDIO ============ -->
+<section>
+  <h2 class="sec"><span class="num">08</span>Cardio</h2>
+
+  <p>O cardio é obrigatório no programa, mas em dose que <strong>complementa</strong> a musculação em vez de competir com ela.
+  A prioridade das modalidades leva em conta o joelho.</p>
+
+  <h3>Modalidades, em ordem de prioridade</h3>
+  <table class="tight">
+    <thead><tr><th style="width:24%">Modalidade</th><th style="width:16%">Prioridade</th><th>Notas</th></tr></thead>
+    <tbody>
+      <tr><td class="ex">Bicicleta ergométrica</td><td class="c"><strong>1ª opção</strong></td><td>Sem impacto, carga ajustável com precisão, fácil de controlar a intensidade. Ajuste o <strong>banco alto</strong> — banco baixo aumenta a flexão de joelho e é a causa mais comum de desconforto na bike.</td></tr>
+      <tr><td class="ex">Elíptico</td><td class="c"><strong>1ª opção</strong></td><td>Sem impacto, envolve membros superiores (gasto energético maior no mesmo tempo). Se disponível, alterne com a bike para variar o estímulo.</td></tr>
+      <tr><td class="ex">Caminhada (esteira ou ar livre)</td><td class="c">2ª opção</td><td>Baixo impacto, excelente para volume acumulado. <strong>Sem inclinação alta nesta fase</strong> — inclinação aumenta a demanda no joelho consideravelmente.</td></tr>
+      <tr><td class="ex">Esteira em ritmo mais forte</td><td class="c">Condicional</td><td>Só se for confortável para o joelho, e sempre testando por 5 minutos antes de fazer a sessão inteira. Se o joelho responder mal em 24 h, volte para bike/elíptico.</td></tr>
+      <tr><td class="ex">Corrida</td><td class="c" style="color:var(--danger)"><strong>Não nesta fase</strong></td><td>Impacto repetitivo com 125 kg e joelho em recuperação não é uma boa relação risco/benefício. Reavalie mais adiante, com peso menor e joelho assintomático.</td></tr>
+    </tbody>
+  </table>
+
+  <h3>Quando fazer</h3>
+  <p><strong>Sempre depois da musculação e do core</strong>, na mesma sessão. Fazer antes reduz a força disponível nas séries
+  pesadas, e preservar força é justamente o que protege sua massa muscular durante o emagrecimento. As únicas
+  exceções são os 4–5 minutos de bike do aquecimento (que são leves e têm outra função).</p>
+
+  <h3>Como controlar a intensidade</h3>
+  <table class="tight">
+    <thead><tr><th style="width:20%">Zona</th><th style="width:14%">RPE</th><th style="width:26%">Teste da conversa</th><th>Uso</th></tr></thead>
+    <tbody>
+      <tr><td class="ex">Z2 — contínuo</td><td class="c">4–6</td><td>Consegue falar frases completas, mas prefere não cantar</td><td>Base do programa. É aqui que fica a maior parte do volume.</td></tr>
+      <tr><td class="ex">Bloco forte (intervalado)</td><td class="c">7–8</td><td>Fala em frases curtas, respiração pesada mas controlada</td><td>1 min por vez, dentro do intervalado. Nunca é "tudo que você tem".</td></tr>
+      <tr><td class="ex">Recuperação</td><td class="c">3–4</td><td>Conversa completamente confortável</td><td>Entre blocos e na finalização.</td></tr>
+    </tbody>
+  </table>
+  <p class="small muted">RPE = percepção de esforço de 0 a 10. Se você usa monitor cardíaco, Z2 costuma ficar em torno de
+  60–70 % da frequência cardíaca máxima — mas o teste da conversa é mais confiável do que fórmulas de FC máxima,
+  ainda mais em uso de medicação que pode alterar a resposta cardíaca. <strong>Se a sua frequência cardíaca estiver
+  desproporcionalmente alta para o esforço percebido, reduza a intensidade e relate ao prescritor.</strong></p>
+
+  <h3>Progressão ao longo das 8 semanas</h3>
+  <table>
+    <thead><tr><th style="width:14%">Semanas</th><th style="width:22%">Sessões contínuas (Z2)</th><th style="width:26%">Sessões intervaladas</th><th style="width:16%">Total semanal</th><th>Observação</th></tr></thead>
+    <tbody>
+      <tr><td class="ex">1–2</td><td>5× de 15 min</td><td>Nenhuma</td><td class="c">75 min</td><td>Fase de adaptação. Só volume, sem intensidade.</td></tr>
+      <tr><td class="ex">3–4</td><td>4× de 20 min</td><td>1× — 6 blocos de (1 min forte / 2 min leve) + 3 min de soltura</td><td class="c">~100 min</td><td>Entra a primeira sessão intervalada, sempre na <strong>bicicleta</strong>.</td></tr>
+      <tr><td class="ex">5–6</td><td>3× de 25 min</td><td>2× — 8 blocos de (1 min forte / 2 min leve) + 3 min de soltura</td><td class="c">~123 min</td><td>Pico de cardio do programa. Não faça os dois intervalados em dias seguidos.</td></tr>
+      <tr><td class="ex">7 <span class="tag t-alt" style="vertical-align:0">deload</span></td><td>5× de 15 min</td><td>Nenhuma</td><td class="c">75 min</td><td>Cardio também reduz na semana de deload. O objetivo é dissipar fadiga.</td></tr>
+      <tr><td class="ex">8</td><td>3× de 25 min</td><td>2× — 8 blocos de (1 min forte / 2 min leve)</td><td class="c">~123 min</td><td>Volta ao pico. Registre como você se sentiu comparado à Semana 5.</td></tr>
+    </tbody>
+  </table>
+
+  <div class="box accent nb">
+    <div class="bt">Regras do cardio</div>
+    <ul>
+      <li><strong>Nos dias de Treino C, sempre bicicleta e sempre contínuo leve.</strong> Nunca coloque o intervalado no
+      mesmo dia da perna — a perna já foi treinada.</li>
+      <li><strong>Coloque os intervalados nos dias de Treino A ou B</strong>, e com pelo menos um dia entre eles.</li>
+      <li><strong>Teto de ~125 min por semana.</strong> Mais cardio que isso, em déficit calórico, começa a comprometer a
+      recuperação da musculação — que é o que protege sua massa muscular. Emagrecer é trabalho do déficit calórico;
+      o cardio ajuda, mas não é onde você deve tentar forçar.</li>
+      <li><strong>Se a força cair por 2 sessões seguidas nos mesmos exercícios</strong>, o primeiro corte é o cardio (volte um
+      degrau na tabela), não a musculação.</li>
+      <li><strong>Qualquer dor no joelho durante o cardio</strong> → troque a modalidade imediatamente. Nunca "termine os
+      20 minutos" com o joelho doendo.</li>
+    </ul>
+  </div>
+</section>
+
+<!-- ============ 9. CORE ============ -->
+<section>
+  <h2 class="sec"><span class="num">09</span>Core e prancha</h2>
+
+  <div class="box danger nb">
+    <div class="bt">O que prancha e abdominal fazem — e o que não fazem</div>
+    <p>Prancha e abdominais <strong>não queimam gordura da barriga</strong>. Não existe redução localizada: você não escolhe de
+    onde o corpo mobiliza gordura, e a quantidade de calorias gastas numa série de prancha é irrelevante nesse cálculo.</p>
+    <p>O que o treino de core <strong>de fato</strong> entrega: um tronco que resiste a forças sem ceder. Isso melhora sua execução
+    no stiff, no farmer's walk, na flexão e na remada invertida; protege a lombar quando você carrega peso; e é um
+    componente direto de "controlar o próprio corpo", que é um dos seus objetivos. A barriga reduz conforme a gordura
+    corporal total reduz — e o core forte é o que aparece embaixo quando isso acontece.</p>
+  </div>
+
+  <h3>Os três tipos de core que o programa treina</h3>
+  <p>Um core funcional não é feito de flexões de tronco repetidas. É feito de <strong>resistir</strong> a três coisas:</p>
+  <table class="tight">
+    <thead><tr><th style="width:22%">Função</th><th style="width:22%">Exercício</th><th style="width:14%">Onde</th><th>O que ela significa na prática</th></tr></thead>
+    <tbody>
+      <tr><td class="ex">Anti-extensão</td><td>Prancha frontal · Dead bug</td><td class="c">Treino A</td><td>Impedir que a lombar arqueie sob carga. É o que protege sua coluna no stiff, no farmer's walk e no desenvolvimento.</td></tr>
+      <tr><td class="ex">Anti-rotação</td><td>Pallof press</td><td class="c">Treino B</td><td>Impedir que o tronco gire quando a força é assimétrica — carregar peso de um lado só, remada unilateral, vida real.</td></tr>
+      <tr><td class="ex">Anti-flexão lateral</td><td>Prancha lateral</td><td class="c">Treino C</td><td>Impedir que o tronco tombe para o lado. Envolve muito <strong>glúteo médio</strong>, que é diretamente ligado à estabilidade de quadril e joelho.</td></tr>
+    </tbody>
+  </table>
+
+  <h3>Prancha frontal — escada de progressão</h3>
+  <p><strong>Comece pelo nível 1.</strong> Com 125 kg, a prancha no chão exige muito da lombar antes de exigir do abdômen —
+  a versão com as mãos elevadas reduz a carga proporcionalmente e permite executar com a postura correta desde o início.
+  Isso não é uma versão "mais fácil": é a versão certa para começar.</p>
+
+  <div class="ladder">
+    <div class="step"><div class="lv">NÍVEL 1</div><div><b>Prancha com antebraços no banco</b>Antebraços apoiados em um banco ou plataforma na altura da cintura, pés no chão, corpo em linha reta. Meta: 3 × 30 s com o quadril firme.</div></div>
+    <div class="step"><div class="lv">NÍVEL 2</div><div><b>Prancha com antebraços em superfície mais baixa</b>Step ou banco baixo. Meta: 3 × 30 s.</div></div>
+    <div class="step"><div class="lv">NÍVEL 3</div><div><b>Prancha no solo</b>Antebraços e pés no chão. Meta: 3 × 30 s → progredir até 3 × 45 s.</div></div>
+    <div class="step"><div class="lv">NÍVEL 4</div><div><b>Prancha no solo com elevação de braço</b>3 × 45 s, tirando um braço do chão por 3 s alternadamente, <strong>sem deixar o quadril rodar</strong>. Aqui a dificuldade sobe pela instabilidade, não pelo tempo.</div></div>
+  </div>
+
+  <div class="box warn nb">
+    <div class="bt">Teto de 60 segundos</div>
+    <p>Quando você chegar a <strong>3 × 60 s</strong> num nível, <strong>não aumente mais o tempo</strong> — passe para o nível seguinte.
+    Prancha de 3 minutos vira teste de tédio e tolerância ao desconforto, não estímulo de força. O critério para
+    subir de nível é: <em>3 séries no tempo alvo, com o quadril imóvel e sem tremor de perder a postura</em>.</p>
+  </div>
+
+  <h3>Prancha lateral — escada de progressão</h3>
+  <div class="ladder">
+    <div class="step"><div class="lv">NÍVEL 1</div><div><b>Prancha lateral com joelhos dobrados</b>Apoio no antebraço e nos joelhos. Bem mais acessível e ainda ativa fortemente o oblíquo e o glúteo médio. Meta: 3 × 20 s cada lado.</div></div>
+    <div class="step"><div class="lv">NÍVEL 2</div><div><b>Prancha lateral com antebraço elevado</b>Antebraço em um banco, pernas estendidas. Meta: 3 × 20 s cada lado.</div></div>
+    <div class="step"><div class="lv">NÍVEL 3</div><div><b>Prancha lateral no solo, pernas estendidas</b>Meta: 3 × 30 s cada lado, quadril alto e alinhado.</div></div>
+    <div class="step"><div class="lv">NÍVEL 4</div><div><b>Prancha lateral com braço estendido</b>Apoio na mão em vez do antebraço, quadril elevado. 3 × 30 s cada lado.</div></div>
+  </div>
+
+  <h3>Abdominais que valem a pena — e os que não valem</h3>
+  <table class="tight">
+    <thead><tr><th style="width:26%">Exercício</th><th style="width:14%">Veredito</th><th>Por quê</th></tr></thead>
+    <tbody>
+      <tr><td class="ex">Prancha (todas as variações)</td><td class="c" style="color:var(--ok)"><strong>Sim</strong></td><td>Base do programa. Treina exatamente a função que o tronco cumpre sob carga.</td></tr>
+      <tr><td class="ex">Dead bug</td><td class="c" style="color:var(--ok)"><strong>Sim</strong></td><td>Coluna neutra, alta demanda de controle, praticamente sem risco. Excelente para aprender a "travar" o tronco.</td></tr>
+      <tr><td class="ex">Pallof press</td><td class="c" style="color:var(--ok)"><strong>Sim</strong></td><td>A função anti-rotação é a mais negligenciada e a mais transferível para a vida real.</td></tr>
+      <tr><td class="ex">Abdominal na polia alta (ajoelhado)</td><td class="c" style="color:var(--warn)">Depois</td><td>Bom exercício e permite progressão de carga — mas exige ajoelhar, o que <strong>não é adequado agora</strong> com o joelho sensível. Reavalie quando o joelho estiver assintomático.</td></tr>
+      <tr><td class="ex">Elevação de pernas suspenso</td><td class="c" style="color:var(--warn)">Depois</td><td>Exige uma pendura sustentada que a sua pegada ainda não suporta com 125 kg. Vira objetivo natural das seções 10 e 11.</td></tr>
+      <tr><td class="ex">Abdominal supra com repetições altas</td><td class="c" style="color:var(--ink-soft)">Opcional</td><td>Não é perigoso, só é pouco eficiente. Se você gosta, faça — mas não substitui prancha nem Pallof.</td></tr>
+      <tr><td class="ex">Abdominal infra com pernas retas / "canivete"</td><td class="c" style="color:var(--danger)"><strong>Não agora</strong></td><td>Alta carga em cisalhamento na lombar, especialmente com massa corporal elevada, e baixo retorno. Não há motivo para incluir.</td></tr>
+    </tbody>
+  </table>
+</section>
+
+<!-- ============ 10. CONTROLE DO PESO CORPORAL ============ -->
+<section>
+  <h2 class="sec"><span class="num">10</span>Progressões para controle do peso corporal</h2>
+
+  <div class="box accent nb">
+    <div class="bt">O ponto de partida honesto</div>
+    <p>Você pesa 125 kg. Isso significa que uma flexão no solo é, para você, um supino com 90–100 kg de carga —
+    e uma barra fixa é uma puxada com 125 kg. <strong>Não conseguir fazer esses movimentos hoje não é falta de força:
+    é matemática.</strong> Você provavelmente já é mais forte que a maioria em termos absolutos.</p>
+    <p>Por isso a progressão acontece por <strong>dois caminhos simultâneos</strong>: você fica mais forte (treino) e o
+    denominador diminui (peso corporal). É por isso que essas progressões aceleram bastante a partir dos 115 kg —
+    cada quilo perdido é literalmente carga retirada de todos esses exercícios.</p>
+    <p><strong>Expectativa realista:</strong> flexão completa no solo é um objetivo plausível para o fim deste ciclo ou pouco depois.
+    Barra fixa completa é um objetivo de 2027, e depende mais do peso do que da força. Isso não é pessimismo —
+    é o que permite você medir progresso de verdade em vez de se frustrar com uma meta desalinhada.</p>
+  </div>
+
+  <h3>Flexão — escada de progressão &nbsp;<span class="small muted">(Treino A, exercício A3)</span></h3>
+  <p><strong>Regra para subir de nível:</strong> quando você fizer <strong>3 séries de 12 repetições</strong> com técnica perfeita e ainda
+  sobrando 2 repetições no tanque, desça um degrau (superfície mais baixa). Ao descer, é normal voltar para 6–8 repetições — isso é o esperado.</p>
+
+  <div class="ladder">
+    <div class="step"><div class="lv">NÍVEL 1</div><div><b>Flexão na parede</b>Pés a cerca de 60 cm da parede, mãos na altura do peito. Serve para aprender o padrão e a rigidez de tronco.</div></div>
+    <div class="step"><div class="lv">NÍVEL 2</div><div><b>Flexão na barra do Smith alta</b>Barra travada na altura do quadril/abdômen. A grande vantagem: você regula a altura em incrementos pequenos, o que dá uma progressão muito mais fina do que trocar de móvel.</div></div>
+    <div class="step"><div class="lv">NÍVEL 3</div><div><b>Flexão no banco (~45 cm)</b>Mãos na borda do banco, corpo reto, pés no chão.</div></div>
+    <div class="step"><div class="lv">NÍVEL 4</div><div><b>Flexão no step (~20–30 cm)</b>Últimos centímetros antes do solo. Costuma ser o nível que mais demora — é normal ficar semanas aqui.</div></div>
+    <div class="step"><div class="lv">NÍVEL 5</div><div><b>Flexão completa no solo</b>Corpo em linha reta, peito descendo até perto do chão, cotovelos a ~45°.</div></div>
+  </div>
+  <p class="small muted"><strong>Por que não usar a flexão de joelhos?</strong> Por dois motivos: ela apoia peso diretamente sobre a patela,
+  o que não é o que você quer com um joelho sensível; e ela remove a exigência de manter o corpo rígido em prancha,
+  que é justamente metade do que a flexão treina. A flexão inclinada é melhor nos dois aspectos.</p>
+
+  <h3>Remada invertida — escada de progressão &nbsp;<span class="small muted">(Treino B, exercício B3)</span></h3>
+  <p><strong>Regra para subir de nível:</strong> <strong>3 séries de 10 repetições</strong> com RIR 2 e corpo perfeitamente reto → baixe a barra
+  um pouco ou avance os pés. <strong>Registre a altura da barra na ficha</strong> — é assim que você enxerga o progresso.</p>
+
+  <div class="ladder">
+    <div class="step"><div class="lv">NÍVEL 1</div><div><b>Barra alta, joelhos dobrados, tronco bem inclinado</b>Barra na altura do quadril, pés próximos ao corpo. Quanto mais vertical você está, mais leve é.</div></div>
+    <div class="step"><div class="lv">NÍVEL 2</div><div><b>Barra alta, joelhos dobrados a ~90°, pés mais à frente</b>O tronco fica mais inclinado, aumentando a porcentagem do peso corporal.</div></div>
+    <div class="step"><div class="lv">NÍVEL 3</div><div><b>Barra mais baixa, pernas estendidas, calcanhares no chão</b>Corpo reto e diagonal. Grande salto de dificuldade — e sem flexão de joelho, o que é bom para você.</div></div>
+    <div class="step"><div class="lv">NÍVEL 4</div><div><b>Barra na altura do quadril, corpo quase horizontal</b>Peito quase encostando na barra no topo.</div></div>
+    <div class="step"><div class="lv">NÍVEL 5</div><div><b>Pés elevados em um banco</b>Corpo horizontal ou acima. Aqui você já está muito perto da barra fixa.</div></div>
+  </div>
+
+  <h3>Barra fixa — etapas &nbsp;<span class="small muted">(construída no Treino B)</span></h3>
+  <div class="ladder">
+    <div class="step"><div class="lv">ETAPA 1</div><div><b>Pendura com apoio dos pés</b>Barra baixa ou step sob os pés, tirando parte do peso. 3 × 20–30 s. <strong>É aqui que você começa</strong> (exercício B4).</div></div>
+    <div class="step"><div class="lv">ETAPA 2</div><div><b>Pendura ativa</b>Mesmo apoio, mas puxando os ombros para baixo e para trás (deprimindo a escápula) sem dobrar o cotovelo. 3 × 6–8 repetições lentas. Ensina o início da puxada.</div></div>
+    <div class="step"><div class="lv">ETAPA 3</div><div><b>Barra fixa assistida na máquina</b>Reduza a assistência ~5 kg quando fizer 3 × 10 com RIR 2. Esta é a etapa mais longa e mais produtiva — provavelmente onde você passará a maior parte de 2026.</div></div>
+    <div class="step"><div class="lv">ETAPA 4</div><div><b>Negativas</b>Suba com apoio (step ou salto controlado — <strong>cuidado com o joelho na aterrissagem, use step</strong>) e desça em 4–5 s. 3 × 3 repetições. Só comece quando estiver confortável na etapa 3 com pouca assistência.</div></div>
+    <div class="step"><div class="lv">ETAPA 5</div><div><b>Barra fixa completa</b>A primeira geralmente aparece na faixa dos 105–110 kg com a etapa 3 bem construída — ou seja, seu objetivo de peso e este objetivo chegam mais ou menos juntos.</div></div>
+  </div>
+
+  <h3>Sustentação e carregamento</h3>
+  <p>Já estão no programa e são a forma mais direta de "sustentar o próprio corpo e mais um pouco":
+  <strong>farmer's walk</strong> (B7) e <strong>pendura</strong> (B4). Some a isso a prancha e a prancha lateral, e você tem
+  todo o espectro de sustentação isométrica coberto sem precisar de nenhum exercício avançado de calistenia agora.</p>
+
+  <div class="box nb">
+    <div class="bt">Movimentos que ainda NÃO entram — e quando reavaliar</div>
+    <ul>
+      <li><strong>Paralelas / mergulho (dips):</strong> alta demanda no ombro com peso corporal elevado. Reavalie quando estiver
+      fazendo flexões completas no solo com folga.</li>
+      <li><strong>Burpee, salto, pliometria:</strong> impacto e aterrissagem — exatamente o que o joelho não precisa agora.</li>
+      <li><strong>Agachamento profundo com peso corporal, afundo, passada:</strong> dependem de avaliação do joelho.
+      O programa entrega o mesmo estímulo por leg press, hip thrust e stiff, com muito mais controle.</li>
+      <li><strong>Muscle up, front lever, e afins:</strong> não é falta de ambição — é sequência. Barra fixa vem primeiro.</li>
+    </ul>
+  </div>
+</section>
+
+<!-- ============ 11. PUNHOS E OMBROS ============ -->
+<section>
+  <h2 class="sec"><span class="num">11</span>Fortalecimento de punhos, antebraços e ombros</h2>
+
+  <h3>Punhos, antebraços e pegada</h3>
+  <p>Três frentes complementares, todas já dentro do Treino B — nada disso é trabalho extra:</p>
+  <table class="tight">
+    <thead><tr><th style="width:24%">Frente</th><th style="width:26%">Exercício</th><th style="width:14%">Onde</th><th>Função</th></tr></thead>
+    <tbody>
+      <tr><td class="ex">Força de esmagamento</td><td>Farmer's walk · Pendura na barra</td><td class="c">B4, B7</td><td>A pegada que segura peso. É o que limita a sua remada e será o que limita a sua barra fixa.</td></tr>
+      <tr><td class="ex">Flexores do punho</td><td>Rosca de punho</td><td class="c">B6</td><td>Musculatura da face interna do antebraço.</td></tr>
+      <tr><td class="ex">Extensores do punho</td><td>Extensão de punho</td><td class="c">B6</td><td>Face externa do antebraço. <strong>Frequentemente esquecida</strong> — e o desequilíbrio entre flexores e extensores é uma das causas mais comuns de dor na face externa do cotovelo.</td></tr>
+      <tr><td class="ex">Antebraço em pegada neutra</td><td>Rosca martelo</td><td class="c">B5</td><td>Braquiorradial — o músculo que dá volume ao antebraço e força na pegada neutra.</td></tr>
+    </tbody>
+  </table>
+
+  <div class="box accent nb">
+    <div class="bt">Progressão de punhos e pegada</div>
+    <ul>
+      <li><strong>Rosca e extensão de punho:</strong> incrementos <strong>muito pequenos</strong> — 1 kg por haltere. Punho responde mal a
+      salto de carga. Quando fizer 2 × 15 com RIR 2, suba 1 kg.</li>
+      <li><strong>Farmer's walk:</strong> progrida primeiro a <strong>distância</strong> (30 m → 40 m → 50 m), depois volte a 30 m com
+      carga maior. Nunca aumente carga e distância na mesma sessão.</li>
+      <li><strong>Pendura:</strong> progrida tirando peso dos pés, não aumentando o tempo indefinidamente. Meta intermediária:
+      30 s com o peso todo. Meta seguinte: 3 × 30 s.</li>
+      <li><strong>Não use strap</strong> nas séries de remada e puxada deste programa. O strap resolve a pegada e impede que ela
+      se desenvolva — e a pegada é justamente um objetivo seu.</li>
+    </ul>
+  </div>
+
+  <h3>Ombros — a lógica por trás das escolhas</h3>
+  <p>Você pediu para fortalecer ombros <strong>sem</strong> encher o programa de elevações. Foi exatamente o que foi feito:
+  o programa tem <strong>um único</strong> exercício de elevação lateral. O restante do trabalho de ombro vem de força de
+  empurrar, de estabilizadores e do trabalho de escápula, que é o que sustenta o ombro no longo prazo.</p>
+
+  <table class="tight">
+    <thead><tr><th style="width:24%">Componente</th><th style="width:28%">Exercício</th><th style="width:12%">Onde</th><th>Por quê</th></tr></thead>
+    <tbody>
+      <tr><td class="ex">Deltoide anterior</td><td>Desenvolvimento sentado · Supino</td><td class="c">A2, A1</td><td>Força de empurrar vertical e horizontal. Base de tudo.</td></tr>
+      <tr><td class="ex">Deltoide lateral</td><td>Elevação lateral</td><td class="c">A4</td><td>O único isolador realmente necessário — é a porção menos estimulada pelos compostos.</td></tr>
+      <tr><td class="ex">Deltoide posterior</td><td>Face pull</td><td class="c">A6</td><td>Equilibra o volume de empurrar e é diretamente ligado à postura do ombro.</td></tr>
+      <tr><td class="ex">Rotadores externos / manguito</td><td>Face pull (execução lenta e leve)</td><td class="c">A6</td><td>Trabalhado como <strong>estabilizador</strong>, com carga leve, na função em que ele atua de verdade. Não como exercício de força isolado.</td></tr>
+      <tr><td class="ex">Escápulas</td><td>Band pull-apart (aquecimento) · Puxada · Remada · Pendura ativa</td><td class="c">Aquec., B1, B2, B4</td><td>Retração, depressão e controle escapular. Um ombro estável é resultado de uma escápula que se move e estabiliza bem.</td></tr>
+      <tr><td class="ex">Costas superiores</td><td>Remada sentada · Remada invertida · Face pull</td><td class="c">B2, B3, A6</td><td>Trapézio médio e romboides. Sustentam a postura e protegem o ombro em toda pressão acima da cabeça.</td></tr>
+    </tbody>
+  </table>
+
+  <div class="box warn nb">
+    <div class="bt">Sobre manguito rotador</div>
+    <p>O programa trata o manguito como <strong>estabilizador</strong> — que é o papel dele — através do face pull leve e bem executado
+    e do trabalho escapular. Isso é adequado para um ombro <strong>saudável</strong>.</p>
+    <p>Se você tem ou tiver dor de ombro, formigamento, perda de força ou dor ao dormir sobre o ombro, isso muda de categoria:
+    passa a ser um caso para <strong>avaliação de fisioterapeuta</strong>, com exercícios específicos prescritos para o seu quadro.
+    Exercícios genéricos de manguito puxados da internet não substituem essa avaliação — vale a mesma lógica que já
+    aplicamos ao joelho.</p>
+  </div>
+</section>
+
+<!-- ============ 12. PROGRESSÃO DE CARGA ============ -->
+<section>
+  <h2 class="sec"><span class="num">12</span>Estratégia de progressão de carga</h2>
+
+  <h3>Primeiro: entendendo RIR</h3>
+  <p><strong>RIR = Repetições em Reserva.</strong> É quantas repetições você ainda conseguiria fazer, com boa técnica, se continuasse
+  a série. É o jeito mais prático de calibrar esforço sem precisar testar carga máxima.</p>
+  <table class="tight">
+    <thead><tr><th style="width:10%">RIR</th><th style="width:10%">RPE</th><th style="width:32%">Sensação</th><th>Onde é usado neste programa</th></tr></thead>
+    <tbody>
+      <tr><td class="c"><strong>4</strong></td><td class="c">6</td><td>Confortável, "dava para fazer bem mais"</td><td>Semanas 1–2 e semana de deload</td></tr>
+      <tr><td class="c"><strong>3</strong></td><td class="c">7</td><td>Começa a exigir, mas a barra ainda sobe rápido</td><td>Semanas 1–2 e 3–4; exercícios de perna</td></tr>
+      <tr><td class="c"><strong>2</strong></td><td class="c">8</td><td>As últimas repetições ficam nitidamente mais lentas</td><td><strong>Faixa padrão do programa</strong></td></tr>
+      <tr><td class="c"><strong>1</strong></td><td class="c">9</td><td>Muito difícil, a última repetição quase trava</td><td>Semanas 5–6 e 8, apenas em isoladores</td></tr>
+      <tr><td class="c"><strong>0</strong></td><td class="c">10</td><td>Falha — não conseguiria mais nenhuma</td><td style="color:var(--danger)"><strong>Não é usado neste programa.</strong> Falha cansa muito e ensina pouco.</td></tr>
+    </tbody>
+  </table>
+  <p class="small muted">Estimar RIR é uma habilidade: no começo quase todo mundo subestima (acha que tem 2 na reserva quando tem 4).
+  Isso melhora rápido — nas semanas 1–2, erre para o lado conservador de propósito.</p>
+
+  <h3>O sistema: progressão dupla</h3>
+  <div class="box accent nb">
+    <div class="bt">A regra, em uma frase</div>
+    <p style="font-size:11pt">Se você conseguir realizar <strong>todas as séries no topo da faixa de repetições</strong>, mantendo boa técnica
+    e ainda com o <strong>RIR alvo</strong> da semana, aumente a carga na próxima sessão.</p>
+    <p>Enquanto isso não acontecer, <strong>mantenha a carga e tente adicionar repetições</strong>. Você só sobe carga quando "conquistou"
+    o topo da faixa em todas as séries — não em uma só.</p>
+  </div>
+
+  <div class="box warn nb">
+    <div class="bt">A regra que evita a maioria dos problemas</div>
+    <p><strong>Uma variável por vez.</strong> Em qualquer sessão, você pode aumentar <em>ou</em> a carga, <em>ou</em> as repetições,
+    <em>ou</em> as séries, <em>ou</em> a amplitude — nunca duas coisas juntas. Aumentar carga e volume simultaneamente é
+    a forma mais rápida de acumular fadiga sem perceber e de provocar exatamente a irritação de joelho que estamos evitando.</p>
+  </div>
+
+  <h4>Exemplo prático — Supino com halteres, faixa 8–10, RIR 2</h4>
+  <table class="tight">
+    <thead><tr><th style="width:14%">Sessão</th><th style="width:14%">Carga</th><th style="width:22%">Repetições</th><th>Decisão</th></tr></thead>
+    <tbody>
+      <tr><td>1</td><td>24 kg</td><td>9 · 8 · 8</td><td>Dentro da faixa, mas não no topo → <strong>mantém</strong> a carga, tenta somar repetições.</td></tr>
+      <tr><td>2</td><td>24 kg</td><td>10 · 9 · 8</td><td>Ainda não são três séries de 10 → <strong>mantém</strong>.</td></tr>
+      <tr><td>3</td><td>24 kg</td><td>10 · 10 · 9</td><td>Quase lá → <strong>mantém</strong>.</td></tr>
+      <tr style="background:var(--ok-soft)"><td>4</td><td>24 kg</td><td><strong>10 · 10 · 10</strong></td><td><strong>Topo da faixa em todas as séries, RIR 2 → sobe para 26 kg na próxima.</strong></td></tr>
+      <tr><td>5</td><td>26 kg</td><td>8 · 8 · 7</td><td>Caiu para a base da faixa — <strong>isso é o esperado e é o sinal de que a progressão está certa</strong>. Reinicia o ciclo.</td></tr>
+    </tbody>
+  </table>
+
+  <h3>Quanto aumentar — por tipo de exercício</h3>
+  <table>
+    <thead><tr><th style="width:34%">Exercício</th><th style="width:18%">Incremento</th><th>Nota</th></tr></thead>
+    <tbody>
+      <tr><td class="ex">Leg press</td><td class="c">+5 a +10 kg</td><td>Exercício de carga alta, tolera saltos maiores. <strong>Mas com o joelho em recuperação, use +5 kg</strong> e priorize ganhar amplitude antes de ganhar carga.</td></tr>
+      <tr><td class="ex">Elevação pélvica</td><td class="c">+5 kg</td><td>Também tolera bem incrementos maiores. Provavelmente será o exercício que mais evolui.</td></tr>
+      <tr><td class="ex">Mesa flexora · Extensora · Abdução</td><td class="c">+2,5 a +5 kg</td><td>Uma placa por vez, conforme a máquina.</td></tr>
+      <tr><td class="ex">Panturrilha</td><td class="c">+5 kg</td><td>Só suba se mantiver a pausa de 1 s no topo e a amplitude completa.</td></tr>
+      <tr><td class="ex">Puxada · Remada na polia</td><td class="c">+2,5 a +5 kg</td><td>Depende dos incrementos da pilha de pesos.</td></tr>
+      <tr><td class="ex">Supino · Desenvolvimento · Stiff (halteres)</td><td class="c">Próximo par</td><td>Geralmente +2 kg por haltere — salto grande em termos relativos. É normal ficar 3–4 sessões em cada carga.</td></tr>
+      <tr><td class="ex">Elevação lateral · Face pull · Rosca martelo</td><td class="c">Próximo par (+1–2 kg)</td><td>Se o próximo haltere for muito pesado, primeiro adicione uma série antes de subir a carga.</td></tr>
+      <tr><td class="ex">Rosca e extensão de punho</td><td class="c">+1 kg</td><td>Incrementos mínimos. Punho não perdoa pressa.</td></tr>
+      <tr><td class="ex">Flexão · Remada invertida</td><td class="c">Reduzir a altura</td><td>A "carga" aqui é a inclinação. Progrida em incrementos pequenos — a barra do Smith é ideal para isso.</td></tr>
+      <tr><td class="ex">Prancha · Prancha lateral</td><td class="c">Subir de nível</td><td>Tempo até 60 s, depois muda de nível. Nunca acumule tempo indefinidamente.</td></tr>
+      <tr><td class="ex">Farmer's walk</td><td class="c">Distância, depois carga</td><td>30 m → 40 m → 50 m → volta a 30 m com halteres maiores.</td></tr>
+      <tr><td class="ex">Barra fixa assistida</td><td class="c">−5 kg de assistência</td><td>Aqui você progride <em>reduzindo</em> o peso da máquina.</td></tr>
+    </tbody>
+  </table>
+
+  <h3>O que fazer quando as coisas não vão bem</h3>
+  <table class="tight">
+    <thead><tr><th style="width:34%">Situação</th><th>O que fazer</th></tr></thead>
+    <tbody>
+      <tr><td class="ex">Subi a carga e caí <strong>abaixo</strong> da base da faixa</td><td>Volte à carga anterior e trabalhe as repetições novamente. Não force o peso novo. Você subiu cedo demais — isso acontece e não é problema.</td></tr>
+      <tr><td class="ex">Estou há <strong>3 sessões</strong> travado na mesma carga e nas mesmas repetições</td><td>Verifique sono, alimentação, estresse e se o cardio não subiu demais. Se estiver tudo em ordem, <strong>reduza 10 % da carga e reconstrua</strong> por 2–3 sessões — recuar costuma render mais progresso em um mês do que insistir.</td></tr>
+      <tr><td class="ex">Consigo o topo da faixa, mas a <strong>técnica muda</strong> nas últimas repetições</td><td>Não subiu. Refaça a mesma carga com a mesma quantidade de repetições e execução limpa. <strong>Técnica é pré-requisito da progressão, não um detalhe.</strong></td></tr>
+      <tr><td class="ex">A força <strong>caiu</strong> em vários exercícios ao mesmo tempo</td><td>É fadiga acumulada ou déficit agressivo demais, não falta de esforço. Antecipe o deload e reveja alimentação e sono. Em déficit, alguma estagnação é normal — <strong>manter carga já é vitória enquanto o peso cai</strong>.</td></tr>
+      <tr><td class="ex">Um exercício <strong>nunca</strong> fica confortável</td><td>Troque pela alternativa listada no card do exercício. Não existe exercício obrigatório — existe função a ser treinada.</td></tr>
+      <tr><td class="ex">A carga sobe, mas o joelho fica sensível no dia seguinte</td><td><strong>A carga não subiu.</strong> Volte à sessão anterior e siga a regra das 24 horas da seção 2. No Treino C, a resposta do joelho tem prioridade sobre a planilha, sempre.</td></tr>
+    </tbody>
+  </table>
+
+</section>
+
+<!-- ============ 13. ESTRUTURA DAS 8 SEMANAS ============ -->
+<section>
+  <h2 class="sec"><span class="num">13</span>Estrutura das 8 semanas</h2>
+
+  <p><strong>Os exercícios não mudam.</strong> Os mesmos movimentos são mantidos do início ao fim de propósito: é assim que você
+  aprende a técnica, calibra as cargas e consegue enxergar progresso real em vez de trocar de exercício e perder a
+  referência. O que muda a cada fase é o <strong>esforço, o volume e a dificuldade</strong>.</p>
+
+  <table>
+    <thead><tr><th style="width:11%">Semanas</th><th style="width:17%">Fase</th><th style="width:9%">RIR</th><th style="width:19%">Volume</th><th>O que acontece</th></tr></thead>
+    <tbody>
+      <tr>
+        <td class="ex">1–2</td><td><strong>Adaptação</strong></td><td class="c">3–4</td><td>Conforme as tabelas</td>
+        <td>Prioridade absoluta é <strong>encontrar as cargas certas</strong> e aprender a execução. Fique conservador: se está em dúvida entre duas cargas, use a menor. Registre <strong>tudo</strong> — esta é a linha de base contra a qual você vai medir as próximas 6 semanas. Estabeleça o nível inicial da flexão, da remada invertida e da prancha. Cardio só em Z2.</td>
+      </tr>
+      <tr>
+        <td class="ex">3–4</td><td><strong>Progressão gradual</strong></td><td class="c">2–3</td><td>+1 série em A1, B1 e C1 <span class="small muted">(3 → 4)</span></td>
+        <td>Aplique a progressão dupla com consistência. Entra a <strong>cadeira extensora</strong> (2 séries, leve, só em dias verdes). Entra a <strong>primeira sessão de cardio intervalado</strong>. Comece a testar amplitude um pouco maior no leg press, se o joelho vier respondendo bem.</td>
+      </tr>
+      <tr>
+        <td class="ex">5–6</td><td><strong>Força e dificuldade</strong></td><td class="c">1–2</td><td>Mantém as 4 séries</td>
+        <td>Fase mais exigente. Nos principais (A1, A2, B1, B2, C1, C2, C3) trabalhe em RIR 1–2; nos acessórios mantenha RIR 2–3. Faixas de repetição dos principais descem para <strong>6–8</strong> em A1, B1 e C1 (mais carga, menos repetições). Segunda sessão de intervalado. Provavelmente você desce um nível na flexão e na remada invertida aqui.</td>
+      </tr>
+      <tr style="background:var(--warn-soft)">
+        <td class="ex">7</td><td><strong>Deload</strong></td><td class="c">4–5</td><td><strong>Todos os exercícios: 2 séries</strong></td>
+        <td>Mantenha as <strong>mesmas cargas</strong> da semana 6, mas corte as séries pela metade e pare bem longe do esforço. Cardio volta a 5 × 15 min em Z2, sem intervalado. Core: 2 séries, tempos curtos. <strong>Semana de dissipar fadiga, não de descansar</strong> — você continua treinando 5 dias.</td>
+      </tr>
+      <tr>
+        <td class="ex">8</td><td><strong>Consolidação e avaliação</strong></td><td class="c">1–2</td><td>Volta a 3–4 séries</td>
+        <td>Semana de <strong>medir</strong>. Volume normal, e na segunda vez que fizer cada treino, execute os testes de desempenho da lista abaixo. Você deve se sentir mais forte que na semana 6 — é esse o efeito do deload.</td>
+      </tr>
+    </tbody>
+  </table>
+
+  <div class="box accent nb">
+    <div class="bt">Por que o deload está na semana 7, e por que ele existe</div>
+    <p>Um deload só se justifica quando há fadiga acumulada suficiente para valer a pena dissipar. Aqui há três motivos concretos:</p>
+    <ul>
+      <li><strong>Seis semanas de acumulação contínua</strong> com progressão de carga, volume e cardio ao mesmo tempo — a semana 6 é o pico de tudo.</li>
+      <li><strong>Você está em déficit calórico</strong>, o que reduz a capacidade de recuperação. Deload em déficit não é luxo, é manutenção.</li>
+      <li><strong>Um joelho em recuperação</strong> acumula estresse articular de forma menos previsível que músculo. Uma semana leve é uma janela de segurança.</li>
+    </ul>
+    <p>Ele vem <strong>antes</strong> da avaliação, e não depois, por um motivo prático: testar desempenho com fadiga acumulada mede
+    a sua fadiga, não a sua evolução. Você chega na semana 8 descansado e os números refletem o que você realmente construiu.</p>
+  </div>
+
+  <h3>Testes de desempenho — Semana 8</h3>
+  <p>Execute na <strong>segunda vez</strong> que fizer cada treino, depois do aquecimento e antes do resto da sessão.
+  Compare com os valores registrados nas semanas 1–2.</p>
+  <table class="tight">
+    <thead><tr><th style="width:22%">Teste</th><th style="width:14%">Onde</th><th>Como fazer</th></tr></thead>
+    <tbody>
+      <tr><td class="ex">Flexão</td><td class="c">Treino A</td><td>Máximo de repetições <strong>na mesma altura</strong> usada na semana 1, com técnica perfeita. Pare quando a forma quebrar, não quando falhar.</td></tr>
+      <tr><td class="ex">Prancha frontal</td><td class="c">Treino A</td><td>Tempo máximo <strong>no mesmo nível</strong> da semana 1. Encerre quando o quadril começar a ceder.</td></tr>
+      <tr><td class="ex">Remada invertida</td><td class="c">Treino B</td><td>Máximo de repetições <strong>na mesma altura de barra</strong> da semana 1.</td></tr>
+      <tr><td class="ex">Pendura</td><td class="c">Treino B</td><td>Tempo máximo, com o mesmo grau de apoio dos pés da semana 1.</td></tr>
+      <tr><td class="ex">Cargas principais</td><td class="c">A, B, C</td><td>Não teste 1RM. Compare a carga usada para o topo da faixa de repetições, na semana 8 vs. semana 2, com o mesmo RIR.</td></tr>
+      <tr><td class="ex">Cardio</td><td class="c">Qualquer</td><td>Distância percorrida em 15 min na bike, com a mesma carga da semana 1. Ou a FC ao final desses 15 min.</td></tr>
+      <tr><td class="ex">Joelho</td><td class="c">—</td><td>Compare suas anotações: em quantos dias das semanas 1–2 o joelho foi "amarelo"? E nas semanas 7–8? <strong>Este é possivelmente o dado mais importante das 8 semanas.</strong></td></tr>
+    </tbody>
+  </table>
+
+  <h3>E depois da semana 8?</h3>
+  <p>Refaça o ciclo, começando da fase 3–4 (você não precisa de mais 2 semanas de adaptação) com as cargas que
+  chegou na semana 8. Troque <strong>no máximo 1 ou 2 exercícios acessórios</strong>, se algum não estiver funcionando bem para você.
+  Os movimentos principais devem permanecer por vários ciclos — é neles que a força se acumula ao longo de meses,
+  que é o horizonte real do seu objetivo.</p>
+</section>
+
+<!-- ============ 14. ACOMPANHAMENTO ============ -->
+<section>
+  <h2 class="sec"><span class="num">14</span>Tabelas de acompanhamento</h2>
+
+  <div class="box accent nb">
+    <div class="bt">Como usar estas tabelas</div>
+    <p>Preencha a <strong>ficha diária</strong> durante o treino — não confie na memória para lembrar carga e repetições na semana
+    seguinte. A <strong>ficha semanal</strong> é preenchida uma vez por semana, e as <strong>medidas</strong> a cada 4 semanas.</p>
+    <p><strong>Sobre a balança:</strong> pese-se sempre no <strong>mesmo dia da semana, de manhã, em jejum, após ir ao banheiro</strong>.
+    O peso oscila 1–2 kg por dia por água, sal, sono e intestino — isso não é gordura. Se puder, pese todos os dias
+    e olhe a <strong>média da semana</strong> comparada à média da semana anterior: é muito mais informativa que qualquer
+    medição isolada. Uma semana sem queda no peso, mas com carga subindo e joelho melhor, é uma boa semana.</p>
+  </div>
+
+  <h3>Ficha diária de treino</h3>
+  <p class="small muted">Imprima ou copie uma por sessão. Registre série a série.</p>
+  <table class="log tight">
+    <thead>
+      <tr>
+        <th style="width:8%">Data</th><th style="width:6%">Treino</th><th style="width:20%">Exercício</th>
+        <th style="width:9%">Carga</th><th style="width:8%">Série 1</th><th style="width:8%">Série 2</th><th style="width:8%">Série 3</th><th style="width:8%">Série 4</th>
+        <th style="width:6%">RIR</th><th>Observações</th>
+      </tr>
+    </thead>
+    <tbody class="blank">
+      <tr><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td></tr>
+      <tr><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td></tr>
+      <tr><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td></tr>
+      <tr><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td></tr>
+      <tr><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td></tr>
+      <tr><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td></tr>
+      <tr><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td></tr>
+      <tr><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td></tr>
+    </tbody>
+  </table>
+
+  <table class="log tight">
+    <thead><tr><th colspan="4">Fechamento da sessão</th></tr></thead>
+    <tbody class="blank">
+      <tr><td class="lbl" style="width:22%">Cardio (modalidade / tempo / RPE)</td><td style="width:28%"></td><td class="lbl" style="width:22%">Core (exercício / tempo ou reps)</td><td></td></tr>
+      <tr><td class="lbl">Joelho <strong>durante</strong> (verde / amarelo / vermelho)</td><td></td><td class="lbl">Joelho <strong>no dia seguinte</strong> (melhor / igual / pior)</td><td></td></tr>
+      <tr><td class="lbl">Energia e sono da noite anterior</td><td></td><td class="lbl">Observações gerais</td><td></td></tr>
+    </tbody>
+  </table>
+
+  <h3>Ficha semanal de progresso</h3>
+  <table class="log tight">
+    <thead>
+      <tr>
+        <th style="width:6%">Sem.</th><th style="width:9%">Peso médio</th>
+        <th style="width:11%">Flexão<br><span class="small" style="font-weight:400">nível / máx reps</span></th>
+        <th style="width:11%">Remada invert.<br><span class="small" style="font-weight:400">nível / máx reps</span></th>
+        <th style="width:10%">Prancha<br><span class="small" style="font-weight:400">nível / seg</span></th>
+        <th style="width:10%">Pendura<br><span class="small" style="font-weight:400">seg</span></th>
+        <th style="width:11%">Cardio<br><span class="small" style="font-weight:400">total min</span></th>
+        <th style="width:14%">Joelho<br><span class="small" style="font-weight:400">nº de dias amarelos</span></th>
+        <th>Observações</th>
+      </tr>
+    </thead>
+    <tbody class="blank">
+      <tr><td class="lbl c">1</td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td></tr>
+      <tr><td class="lbl c">2</td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td></tr>
+      <tr><td class="lbl c">3</td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td></tr>
+      <tr><td class="lbl c">4</td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td></tr>
+      <tr><td class="lbl c">5</td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td></tr>
+      <tr><td class="lbl c">6</td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td></tr>
+      <tr><td class="lbl c">7</td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td></tr>
+      <tr><td class="lbl c">8</td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td></tr>
+    </tbody>
+  </table>
+
+  <h3>Cargas dos exercícios principais</h3>
+  <p class="small muted">Uma linha por exercício. Anote a melhor carga da semana com o RIR alvo cumprido.</p>
+  <table class="log tight">
+    <thead>
+      <tr><th style="width:24%">Exercício</th><th style="width:9.5%">Sem 1</th><th style="width:9.5%">Sem 2</th><th style="width:9.5%">Sem 3</th><th style="width:9.5%">Sem 4</th><th style="width:9.5%">Sem 5</th><th style="width:9.5%">Sem 6</th><th style="width:9.5%">Sem 7</th><th style="width:9.5%">Sem 8</th></tr>
+    </thead>
+    <tbody class="blank">
+      <tr><td class="lbl">Supino com halteres</td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td></tr>
+      <tr><td class="lbl">Desenvolvimento sentado</td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td></tr>
+      <tr><td class="lbl">Puxada alta</td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td></tr>
+      <tr><td class="lbl">Remada sentada</td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td></tr>
+      <tr><td class="lbl">Leg press</td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td></tr>
+      <tr><td class="lbl">Elevação pélvica</td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td></tr>
+      <tr><td class="lbl">Stiff com halteres</td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td></tr>
+      <tr><td class="lbl">Mesa flexora</td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td></tr>
+      <tr><td class="lbl">Farmer's walk (kg × m)</td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td></tr>
+      <tr><td class="lbl">Barra assistida (assist. kg)</td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td></tr>
+    </tbody>
+  </table>
+
+  <h3>Medidas corporais — a cada 4 semanas</h3>
+  <p class="small muted">Sempre no mesmo horário, sem contrair, fita firme mas sem apertar. Fotos de frente, perfil e costas
+  no mesmo local e iluminação ajudam mais do que a balança em algumas semanas.</p>
+  <table class="log tight">
+    <thead><tr><th style="width:24%">Medida</th><th style="width:19%">Início (Sem 1)</th><th style="width:19%">Sem 4</th><th style="width:19%">Sem 8</th><th>Variação</th></tr></thead>
+    <tbody class="blank">
+      <tr><td class="lbl">Peso corporal</td><td></td><td></td><td></td><td></td></tr>
+      <tr><td class="lbl">Cintura (na altura do umbigo)</td><td></td><td></td><td></td><td></td></tr>
+      <tr><td class="lbl">Abdômen (ponto mais largo)</td><td></td><td></td><td></td><td></td></tr>
+      <tr><td class="lbl">Quadril</td><td></td><td></td><td></td><td></td></tr>
+      <tr><td class="lbl">Peitoral</td><td></td><td></td><td></td><td></td></tr>
+      <tr><td class="lbl">Braço (contraído, D)</td><td></td><td></td><td></td><td></td></tr>
+      <tr><td class="lbl">Coxa (D)</td><td></td><td></td><td></td><td></td></tr>
+      <tr><td class="lbl">Panturrilha (D)</td><td></td><td></td><td></td><td></td></tr>
+    </tbody>
+  </table>
+
+  <div class="box ok nb">
+    <div class="bt">O que conta como uma boa semana</div>
+    <p>Você pediu para acompanhar desempenho e consistência, não só a balança. Uma semana foi boa se
+    <strong>pelo menos três</strong> destes aconteceram:</p>
+    <ul>
+      <li>Você fez 4 ou 5 sessões.</li>
+      <li>Alguma carga subiu, ou alguma repetição foi adicionada.</li>
+      <li>Você fez todo o cardio planejado.</li>
+      <li>O joelho não teve nenhum dia vermelho.</li>
+      <li>A cintura reduziu, ou o peso médio da semana caiu.</li>
+      <li>Você subiu de nível em alguma progressão (flexão, remada invertida, prancha, pendura).</li>
+    </ul>
+    <p>Repare que <strong>o peso é apenas um dos seis itens</strong>. Ao longo de 8 semanas, a soma dessas pequenas vitórias é o que
+    move o número da balança — e não o contrário.</p>
+  </div>
+</section>
+
+<!-- ============ 15. TUTORIAIS ============ -->
+<section>
+  <h2 class="sec"><span class="num">15</span>Tutoriais dos exercícios</h2>
+  <p>Todos os nomes abaixo são <strong>links clicáveis</strong> no PDF. As fontes utilizadas são:
+  <strong>ExRx.net</strong> (biblioteca de exercícios usada por profissionais de educação física desde 1999, com descrição
+  biomecânica e demonstração de cada movimento), <strong>NASM</strong> (National Academy of Sports Medicine),
+  <strong>PureGym</strong> e um vídeo do YouTube para progressões de remada invertida.</p>
+  <p class="small muted">As páginas do ExRx.net estão em inglês, mas o valor delas é a demonstração visual e a listagem precisa de
+  músculos e variações — o que atravessa o idioma sem problema. Os pontos técnicos em português já estão nos cards de cada exercício.</p>
+
+  <h3>Aquecimento e core</h3>
+  <table class="tight">
+    <thead><tr><th style="width:34%">Exercício</th><th style="width:16%">Fonte</th><th>Link</th></tr></thead>
+    <tbody>
+      <tr><td class="ex"><a href="https://exrx.net/WeightExercises/RectusAbdominis/BWFrontPlank">Prancha frontal</a></td><td>ExRx.net</td><td class="small">exrx.net/WeightExercises/RectusAbdominis/BWFrontPlank</td></tr>
+      <tr><td class="ex"><a href="https://exrx.net/WeightExercises/Obliques/BWBentKneeSidePlank">Prancha lateral com joelhos dobrados</a></td><td>ExRx.net</td><td class="small">exrx.net/WeightExercises/Obliques/BWBentKneeSidePlank</td></tr>
+      <tr><td class="ex"><a href="https://exrx.net/WeightExercises/Obliques/BWSidePlank">Prancha lateral</a></td><td>ExRx.net</td><td class="small">exrx.net/WeightExercises/Obliques/BWSidePlank</td></tr>
+      <tr><td class="ex"><a href="https://www.nasm.org/resource-center/exercise-library/dead-bug">Dead bug</a></td><td>NASM</td><td class="small">nasm.org/resource-center/exercise-library/dead-bug</td></tr>
+      <tr><td class="ex"><a href="https://www.puregym.com/exercises/abs/pallof-press/">Pallof press</a></td><td>PureGym</td><td class="small">puregym.com/exercises/abs/pallof-press/</td></tr>
+    </tbody>
+  </table>
+
+  <h3>Treino A — Empurrar</h3>
+  <table class="tight">
+    <thead><tr><th style="width:34%">Exercício</th><th style="width:16%">Fonte</th><th>Link</th></tr></thead>
+    <tbody>
+      <tr><td class="ex"><a href="https://exrx.net/WeightExercises/PectoralSternal/DBBenchPress">Supino reto com halteres</a></td><td>ExRx.net</td><td class="small">exrx.net/WeightExercises/PectoralSternal/DBBenchPress</td></tr>
+      <tr><td class="ex"><a href="https://exrx.net/WeightExercises/PectoralSternal/LVChestPress">↳ alternativa: supino na máquina</a></td><td>ExRx.net</td><td class="small">exrx.net/WeightExercises/PectoralSternal/LVChestPress</td></tr>
+      <tr><td class="ex"><a href="https://exrx.net/WeightExercises/DeltoidAnterior/DBShoulderPress">Desenvolvimento sentado com halteres</a></td><td>ExRx.net</td><td class="small">exrx.net/WeightExercises/DeltoidAnterior/DBShoulderPress</td></tr>
+      <tr><td class="ex"><a href="https://exrx.net/WeightExercises/PectoralSternal/BWInclinePushup">Flexão inclinada</a></td><td>ExRx.net</td><td class="small">exrx.net/WeightExercises/PectoralSternal/BWInclinePushup</td></tr>
+      <tr><td class="ex"><a href="https://exrx.net/WeightExercises/PectoralSternal/BWInclinePushupBar">↳ flexão inclinada na barra (Smith)</a></td><td>ExRx.net</td><td class="small">exrx.net/WeightExercises/PectoralSternal/BWInclinePushupBar</td></tr>
+      <tr><td class="ex"><a href="https://exrx.net/WeightExercises/PectoralSternal/BWPushup">↳ flexão completa no solo (meta)</a></td><td>ExRx.net</td><td class="small">exrx.net/WeightExercises/PectoralSternal/BWPushup</td></tr>
+      <tr><td class="ex"><a href="https://exrx.net/WeightExercises/DeltoidLateral/DBLateralRaise">Elevação lateral com halteres</a></td><td>ExRx.net</td><td class="small">exrx.net/WeightExercises/DeltoidLateral/DBLateralRaise</td></tr>
+      <tr><td class="ex"><a href="https://exrx.net/WeightExercises/DeltoidLateral/CBOneArmLateralRaise">↳ alternativa: elevação lateral na polia</a></td><td>ExRx.net</td><td class="small">exrx.net/WeightExercises/DeltoidLateral/CBOneArmLateralRaise</td></tr>
+      <tr><td class="ex"><a href="https://exrx.net/WeightExercises/Triceps/CBPushdownRope">Tríceps na polia com corda</a></td><td>ExRx.net</td><td class="small">exrx.net/WeightExercises/Triceps/CBPushdownRope</td></tr>
+      <tr><td class="ex"><a href="https://exrx.net/WeightExercises/Triceps/CBPushdownVBar">↳ alternativa: tríceps com barra V</a></td><td>ExRx.net</td><td class="small">exrx.net/WeightExercises/Triceps/CBPushdownVBar</td></tr>
+      <tr><td class="ex"><a href="https://exrx.net/WeightExercises/DeltoidPosterior/CBStandingRearDeltRowRope">Face pull (remada alta com corda)</a></td><td>ExRx.net</td><td class="small">exrx.net/WeightExercises/DeltoidPosterior/CBStandingRearDeltRowRope</td></tr>
+      <tr><td class="ex"><a href="https://exrx.net/WeightExercises/DeltoidPosterior/CBRearDeltRow">↳ variação: remada para deltoide posterior</a></td><td>ExRx.net</td><td class="small">exrx.net/WeightExercises/DeltoidPosterior/CBRearDeltRow</td></tr>
+    </tbody>
+  </table>
+
+  <h3>Treino B — Puxar, pegada e antebraços</h3>
+  <table class="tight">
+    <thead><tr><th style="width:34%">Exercício</th><th style="width:16%">Fonte</th><th>Link</th></tr></thead>
+    <tbody>
+      <tr><td class="ex"><a href="https://exrx.net/WeightExercises/LatissimusDorsi/CBFrontPulldown">Puxada alta na polia</a></td><td>ExRx.net</td><td class="small">exrx.net/WeightExercises/LatissimusDorsi/CBFrontPulldown</td></tr>
+      <tr><td class="ex"><a href="https://exrx.net/WeightExercises/LatissimusDorsi/LVFrontPulldown">↳ alternativa: puxada na máquina</a></td><td>ExRx.net</td><td class="small">exrx.net/WeightExercises/LatissimusDorsi/LVFrontPulldown</td></tr>
+      <tr><td class="ex"><a href="https://exrx.net/WeightExercises/BackGeneral/CBSeatedRow">Remada sentada na polia</a></td><td>ExRx.net</td><td class="small">exrx.net/WeightExercises/BackGeneral/CBSeatedRow</td></tr>
+      <tr><td class="ex"><a href="https://exrx.net/WeightExercises/BackGeneral/LVSeatedRow">↳ alternativa: remada na máquina</a></td><td>ExRx.net</td><td class="small">exrx.net/WeightExercises/BackGeneral/LVSeatedRow</td></tr>
+      <tr><td class="ex"><a href="https://exrx.net/WeightExercises/BackGeneral/DBBentOverRow">↳ alternativa: remada unilateral com halter</a></td><td>ExRx.net</td><td class="small">exrx.net/WeightExercises/BackGeneral/DBBentOverRow</td></tr>
+      <tr><td class="ex"><a href="https://exrx.net/WeightExercises/BackGeneral/BWSupineRow">Remada invertida</a></td><td>ExRx.net</td><td class="small">exrx.net/WeightExercises/BackGeneral/BWSupineRow</td></tr>
+      <tr><td class="ex"><a href="https://www.youtube.com/watch?v=Fl0UMfdEzsE">↳ vídeo: progressões da remada invertida</a></td><td>YouTube</td><td class="small">youtube.com/watch?v=Fl0UMfdEzsE</td></tr>
+      <tr><td class="ex"><a href="https://exrx.net/WeightExercises/BackGeneral/BWSupineRowFeetElevated">↳ nível avançado: pés elevados</a></td><td>ExRx.net</td><td class="small">exrx.net/WeightExercises/BackGeneral/BWSupineRowFeetElevated</td></tr>
+      <tr><td class="ex"><a href="https://exrx.net/WeightExercises/LatissimusDorsi/AsPullupKneeling">Barra fixa assistida na máquina</a></td><td>ExRx.net</td><td class="small">exrx.net/WeightExercises/LatissimusDorsi/AsPullupKneeling</td></tr>
+      <tr><td class="ex"><a href="https://exrx.net/WeightExercises/LatissimusDorsi/AsPullupOpen">↳ versão em pé (preferível para o joelho)</a></td><td>ExRx.net</td><td class="small">exrx.net/WeightExercises/LatissimusDorsi/AsPullupOpen</td></tr>
+      <tr><td class="ex"><a href="https://exrx.net/WeightExercises/LatissimusDorsi/BWPullup">↳ barra fixa completa (meta)</a></td><td>ExRx.net</td><td class="small">exrx.net/WeightExercises/LatissimusDorsi/BWPullup</td></tr>
+      <tr><td class="ex"><a href="https://exrx.net/WeightExercises/Brachioradialis/DBHammerCurl">Rosca martelo com halteres</a></td><td>ExRx.net</td><td class="small">exrx.net/WeightExercises/Brachioradialis/DBHammerCurl</td></tr>
+      <tr><td class="ex"><a href="https://exrx.net/WeightExercises/Biceps/DBCurl">↳ alternativa: rosca alternada</a></td><td>ExRx.net</td><td class="small">exrx.net/WeightExercises/Biceps/DBCurl</td></tr>
+      <tr><td class="ex"><a href="https://exrx.net/WeightExercises/WristFlexors/DBWristCurl">Rosca de punho</a></td><td>ExRx.net</td><td class="small">exrx.net/WeightExercises/WristFlexors/DBWristCurl</td></tr>
+      <tr><td class="ex"><a href="https://exrx.net/WeightExercises/WristExtensors/DBReverseWristCurl">Extensão de punho</a></td><td>ExRx.net</td><td class="small">exrx.net/WeightExercises/WristExtensors/DBReverseWristCurl</td></tr>
+      <tr><td class="ex"><a href="https://exrx.net/WeightExercises/WristFlexors/BBWristCurl">↳ alternativa: rosca de punho com barra</a></td><td>ExRx.net</td><td class="small">exrx.net/WeightExercises/WristFlexors/BBWristCurl</td></tr>
+      <tr><td class="ex"><a href="https://exrx.net/WeightExercises/Other/SBFarmersWalk">Farmer's walk</a></td><td>ExRx.net</td><td class="small">exrx.net/WeightExercises/Other/SBFarmersWalk</td></tr>
+    </tbody>
+  </table>
+
+  <h3>Treino C — Membros inferiores e quadril</h3>
+  <table class="tight">
+    <thead><tr><th style="width:34%">Exercício</th><th style="width:16%">Fonte</th><th>Link</th></tr></thead>
+    <tbody>
+      <tr><td class="ex"><a href="https://exrx.net/WeightExercises/Quadriceps/SL45LegPress">Leg press 45°</a></td><td>ExRx.net</td><td class="small">exrx.net/WeightExercises/Quadriceps/SL45LegPress</td></tr>
+      <tr><td class="ex"><a href="https://exrx.net/WeightExercises/Quadriceps/LVSeatedLegPress">↳ alternativa: leg press horizontal</a></td><td>ExRx.net</td><td class="small">exrx.net/WeightExercises/Quadriceps/LVSeatedLegPress</td></tr>
+      <tr><td class="ex"><a href="https://exrx.net/WeightExercises/GluteusMaximus/BBHipThrust">Elevação pélvica (hip thrust)</a></td><td>ExRx.net</td><td class="small">exrx.net/WeightExercises/GluteusMaximus/BBHipThrust</td></tr>
+      <tr><td class="ex"><a href="https://exrx.net/WeightExercises/GluteusMaximus/LVHipThrust">↳ alternativa: hip thrust na máquina</a></td><td>ExRx.net</td><td class="small">exrx.net/WeightExercises/GluteusMaximus/LVHipThrust</td></tr>
+      <tr><td class="ex"><a href="https://exrx.net/WeightExercises/Hamstrings/DBStrBackStrLegDeadlift">Stiff com halteres</a></td><td>ExRx.net</td><td class="small">exrx.net/WeightExercises/Hamstrings/DBStrBackStrLegDeadlift</td></tr>
+      <tr><td class="ex"><a href="https://exrx.net/WeightExercises/Hamstrings/LVLyingLegCurl">Mesa flexora (deitada)</a></td><td>ExRx.net</td><td class="small">exrx.net/WeightExercises/Hamstrings/LVLyingLegCurl</td></tr>
+      <tr><td class="ex"><a href="https://exrx.net/WeightExercises/Hamstrings/LVSeatedLegCurl">↳ alternativa: flexora sentada</a></td><td>ExRx.net</td><td class="small">exrx.net/WeightExercises/Hamstrings/LVSeatedLegCurl</td></tr>
+      <tr><td class="ex"><a href="https://exrx.net/WeightExercises/HipAbductor/LVSeatedHipAbductionH">Abdução de quadril na máquina</a></td><td>ExRx.net</td><td class="small">exrx.net/WeightExercises/HipAbductor/LVSeatedHipAbductionH</td></tr>
+      <tr><td class="ex"><a href="https://exrx.net/WeightExercises/HipAbductor/LVStandHipAbduction">↳ alternativa: abdução em pé</a></td><td>ExRx.net</td><td class="small">exrx.net/WeightExercises/HipAbductor/LVStandHipAbduction</td></tr>
+      <tr><td class="ex"><a href="https://exrx.net/WeightExercises/Gastrocnemius/LVStandingCalfRaise">Panturrilha em pé na máquina</a></td><td>ExRx.net</td><td class="small">exrx.net/WeightExercises/Gastrocnemius/LVStandingCalfRaise</td></tr>
+      <tr><td class="ex"><a href="https://exrx.net/WeightExercises/Gastrocnemius/SL45CalfPress">↳ alternativa: panturrilha no leg press</a></td><td>ExRx.net</td><td class="small">exrx.net/WeightExercises/Gastrocnemius/SL45CalfPress</td></tr>
+      <tr><td class="ex"><a href="https://exrx.net/WeightExercises/Soleus/LVSeatedCalfRaise">↳ variação para sóleo: panturrilha sentada</a></td><td>ExRx.net</td><td class="small">exrx.net/WeightExercises/Soleus/LVSeatedCalfRaise</td></tr>
+      <tr><td class="ex"><a href="https://exrx.net/WeightExercises/Quadriceps/LVLegExtension">Cadeira extensora</a> <span class="tag t-joe" style="vertical-align:0">avaliar</span></td><td>ExRx.net</td><td class="small">exrx.net/WeightExercises/Quadriceps/LVLegExtension</td></tr>
+    </tbody>
+  </table>
+
+  <div class="footnote">
+    <strong>Sobre as fontes.</strong> Os links foram selecionados a partir de fontes reconhecidas de treinamento e verificados como
+    páginas existentes e indexadas no momento em que este documento foi elaborado. As páginas do ExRx.net trazem, além da
+    demonstração, a lista de musculatura alvo, estabilizadores e variações de cada movimento.
+    <br><br>
+    <strong>Lembrete final.</strong> Nenhum tutorial, por melhor que seja, substitui a correção presencial de um profissional —
+    e nenhum deles conhece o seu joelho. Se puder, mostre este programa a um educador físico da sua academia e, se a dor
+    no joelho persistir ou piorar, a um fisioterapeuta ou médico. O programa foi feito para respeitar limites, mas quem
+    define esses limites é a sua avaliação individual, não este documento.
+  </div>
+</section>
+
+</body>
+</html>
